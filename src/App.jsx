@@ -33,6 +33,30 @@ function Counter({ end, suffix = "", duration = 2000 }) {
   return <span ref={ref}>{count}{suffix}</span>;
 }
 
+// ─── Logo (inline SVG, inherits text color via currentColor) ───
+export function Logo({ size = 40, strokeWidth = 8 }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 64 64"
+      fill="none"
+      aria-label="Mochito Media"
+      style={{ display: "block", flexShrink: 0 }}
+    >
+      <path
+        d="M 8 54 V 23 Q 8 10 20 10 Q 32 10 32 23 L 32 54 M 32 23 Q 32 10 44 10 Q 56 10 56 23 V 54"
+        stroke="currentColor"
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="58" cy="50" r="4" fill="currentColor" />
+    </svg>
+  );
+}
+
 // ─── Fade-in wrapper ───
 function FadeIn({ children, delay = 0, direction = "up", className = "" }) {
   const [ref, inView] = useInView(0.1);
@@ -72,8 +96,8 @@ function Navbar() {
       borderBottom: scrolled ? "1px solid rgba(107,61,237,0.2)" : "none",
     }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <a href="#hero" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 10 }}>
-          <img src="/logo-mochi.svg" alt="Mochito Media" width={40} height={40} style={{ display: "block" }} />
+        <a href="#hero" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 10, color: "#fff" }}>
+          <Logo size={36} />
           <span style={{ color: "#fff", fontWeight: 800, fontSize: 20, letterSpacing: "-0.5px" }}>mochito</span>
           <span style={{ color: "#06B6D4", fontWeight: 300, fontSize: 20 }}>media</span>
         </a>
@@ -703,8 +727,8 @@ function FooterSection() {
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 40, marginBottom: 48 }}>
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
-              <img src="/logo-mochi.svg" alt="Mochito Media" width={36} height={36} style={{ display: "block" }} />
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, color: "#fff" }}>
+              <Logo size={32} strokeWidth={8} />
               <span style={{ color: "#fff", fontWeight: 800, fontSize: 18 }}>mochito</span>
               <span style={{ color: "#06B6D4", fontWeight: 300, fontSize: 18 }}>media</span>
             </div>

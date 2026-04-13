@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <!-- Option A: Wordmark m. typográfico sobre crema -->
-  <rect x="4" y="4" width="56" height="56" rx="14" fill="#FBF6EA"/>
-  <text x="32" y="48" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="900" font-size="48" fill="#0B1220" text-anchor="middle" letter-spacing="-3">m</text>
-  <circle cx="50" cy="46" r="3.2" fill="#6B3DED"/>
-</svg>
