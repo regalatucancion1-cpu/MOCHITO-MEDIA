@@ -110,7 +110,7 @@ function Navbar() {
 // ─── Hero ───
 function Hero() {
   const [textIdx, setTextIdx] = useState(0);
-  const words = ["historia", "esencia", "vision", "marca"];
+  const words = ["historia", "esencia", "visión", "voz"];
   useEffect(() => {
     const t = setInterval(() => setTextIdx(i => (i + 1) % words.length), 2500);
     return () => clearInterval(t);
