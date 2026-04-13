@@ -177,8 +177,6 @@ function Hero() {
       <style>{`
         @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
         @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
-        .hidden-mobile {}
-        .show-mobile { display: none !important; }
       `}</style>
     </section>
   );

@@ -46,10 +46,34 @@ code {
     padding-right: 20px !important;
   }
 
-  /* Hero inner padding */
+  /* Hero: add breathing room under navbar + inner padding */
+  section#hero {
+    padding-top: 120px !important;
+    padding-bottom: 80px !important;
+    min-height: auto !important;
+  }
   section#hero > div {
     padding-left: 20px !important;
     padding-right: 20px !important;
+  }
+  section#hero h1 {
+    font-size: clamp(34px, 9vw, 48px) !important;
+    margin-top: 12px !important;
+  }
+
+  /* Portfolio: single column, centered cards */
+  section#portfolio > div > div:last-of-type {
+    grid-template-columns: 1fr !important;
+    justify-items: center !important;
+    max-width: 380px;
+    margin: 0 auto !important;
+  }
+  section#portfolio > div > div:last-of-type > div {
+    width: 100% !important;
+    max-width: 340px !important;
+  }
+  section#portfolio > div > div:last-of-type a {
+    max-height: none !important;
   }
 
   /* Navbar inner padding */
