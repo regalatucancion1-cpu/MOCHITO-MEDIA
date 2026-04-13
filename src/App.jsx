@@ -56,11 +56,12 @@ function Navbar() {
     return () => window.removeEventListener("scroll", h);
   }, []);
   const links = [
-    { label: "Nosotros", href: "#nosotros" },
-    { label: "Servicios", href: "#servicios" },
-    { label: "Portfolio", href: "#portfolio" },
-    { label: "Método", href: "#metodo" },
-    { label: "Contacto", href: "#contacto" },
+    { label: "Nosotros", href: "/#nosotros" },
+    { label: "Servicios", href: "/#servicios" },
+    { label: "Portfolio", href: "/#portfolio" },
+    { label: "Método", href: "/#metodo" },
+    { label: "Blog", href: "/blog" },
+    { label: "Contacto", href: "/#contacto" },
   ];
   return (
     <nav style={{
@@ -130,7 +131,7 @@ function Hero() {
         <FadeIn delay={0.1}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(107,61,237,0.15)", border: "1px solid rgba(107,61,237,0.3)", borderRadius: 50, padding: "8px 20px", marginBottom: 32 }}>
             <Sparkles size={14} color="#06B6D4" />
-            <span style={{ color: "#06B6D4", fontSize: 13, fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase" }}>Storytelling que conecta</span>
+            <span style={{ color: "#06B6D4", fontSize: 13, fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase" }}>Creadores UGC, storytelling real</span>
           </div>
         </FadeIn>
         <FadeIn delay={0.3}>
@@ -144,8 +145,8 @@ function Hero() {
           </h1>
         </FadeIn>
         <FadeIn delay={0.5}>
-          <p style={{ fontSize: "clamp(16px, 2.5vw, 21px)", color: "rgba(255,255,255,0.7)", maxWidth: 620, margin: "0 auto 40px", lineHeight: 1.7, fontWeight: 300 }}>
-            Creamos contenido con storytelling para startups y marcas digitales que necesitan frescura, autenticidad y a alguien que dé la cara por ellas.
+          <p style={{ fontSize: "clamp(16px, 2.5vw, 21px)", color: "rgba(255,255,255,0.7)", maxWidth: 680, margin: "0 auto 40px", lineHeight: 1.7, fontWeight: 300 }}>
+            Somos una agencia de creadores UGC y creación de contenido para marcas. Producimos vídeos con storytelling para TikTok, Instagram y Reels que conectan de verdad con tu audiencia y generan ventas.
           </p>
         </FadeIn>
         <FadeIn delay={0.7}>
@@ -186,9 +187,9 @@ function Hero() {
 // ─── Problem Section ───
 function ProblemSection() {
   const problems = [
-    { icon: <Users size={28} />, title: "No tienes equipo creativo", desc: "Contratar un equipo de contenido interno es caro y lento. Necesitas alguien que entienda tu marca y produzca desde el día uno." },
-    { icon: <Video size={28} />, title: "Nadie quiere dar la cara", desc: "Los formatos que mejor funcionan necesitan a una persona real delante de la cámara. Pero en tu equipo nadie quiere o sabe hacerlo." },
-    { icon: <BarChart3 size={28} />, title: "Publicas, pero no conecta", desc: "Sin storytelling, el contenido se pierde en el ruido. No basta con publicar: hay que contar algo que importe." },
+    { icon: <Users size={28} />, title: "No tienes equipo de creación de contenido", desc: "Montar un equipo creativo interno es caro, lento y arriesgado. Necesitas creadores UGC que entiendan tu marca y produzcan vídeos desde el día uno, sin procesos eternos." },
+    { icon: <Video size={28} />, title: "Nadie quiere dar la cara en cámara", desc: "Los formatos que más convierten en TikTok y Reels necesitan una persona real delante de la cámara. Pero en tu equipo nadie quiere, ni sabe, hacerlo con naturalidad." },
+    { icon: <BarChart3 size={28} />, title: "Publicas contenido, pero no conecta", desc: "Sin storytelling de marca, el contenido se pierde en el feed. No basta con publicar por publicar: hay que contar historias que tu audiencia quiera ver hasta el final." },
   ];
   return (
     <section id="problema" style={{ padding: "120px 24px", background: "#FDFAF2" }}>
@@ -197,11 +198,11 @@ function ProblemSection() {
           <div style={{ textAlign: "center", marginBottom: 64 }}>
             <span style={{ color: "#06B6D4", fontSize: 13, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", display: "block", marginBottom: 16 }}>El problema</span>
             <h2 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, color: "#0F172A", lineHeight: 1.1, margin: "0 0 20px", letterSpacing: "-1px" }}>
-              Sabes que necesitas contenido.<br />
-              <span style={{ color: "#06B6D4" }}>Pero no tienes quién lo haga.</span>
+              Sabes que necesitas contenido UGC.<br />
+              <span style={{ color: "#06B6D4" }}>Pero no tienes quién lo produzca.</span>
             </h2>
-            <p style={{ color: "#6B7280", fontSize: 18, maxWidth: 600, margin: "0 auto", lineHeight: 1.7 }}>
-              El 90% de las startups se enfrentan al mismo muro. Tres barreras que les frenan en seco.
+            <p style={{ color: "#6B7280", fontSize: 18, maxWidth: 640, margin: "0 auto", lineHeight: 1.7 }}>
+              El 90% de las startups y marcas digitales se chocan con el mismo muro. Tres barreras que frenan su estrategia de contenido para redes sociales antes siquiera de empezar.
             </p>
           </div>
         </FadeIn>
@@ -240,10 +241,10 @@ function AboutSection() {
             <span style={{ color: "#06B6D4", fontSize: 13, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", display: "block", marginBottom: 16 }}>Nosotros</span>
             <h2 style={{ fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 800, color: "#0F172A", lineHeight: 1.1, margin: "0 0 24px", letterSpacing: "-1px" }}>
               Somos Mochito Media.<br />
-              <span style={{ color: "#06B6D4" }}>Tu equipo creativo externo.</span>
+              <span style={{ color: "#06B6D4" }}>Tu agencia de creadores UGC.</span>
             </h2>
-            <p style={{ color: "#6B7280", fontSize: 17, lineHeight: 1.8, maxWidth: 700, margin: "0 auto 0" }}>
-              Nacimos para resolver un problema real: miles de marcas necesitan contenido fresco y auténtico pero no tienen a nadie para producirlo. Nosotros nos encargamos de todo, desde la estrategia hasta la publicación, para que tú solo tengas que preocuparte de hacer crecer tu negocio.
+            <p style={{ color: "#6B7280", fontSize: 17, lineHeight: 1.8, maxWidth: 720, margin: "0 auto 0" }}>
+              Nacimos para resolver un problema real que sufren miles de marcas: necesitan contenido fresco, auténtico y con storytelling, pero no tienen a nadie que lo produzca con constancia. Nosotros nos encargamos de todo, desde la estrategia de contenido hasta la grabación, edición y publicación en TikTok, Instagram y Reels, para que tú te centres solo en hacer crecer tu negocio.
             </p>
           </div>
         </FadeIn>
@@ -353,10 +354,10 @@ function AboutSection() {
 // ─── Services ───
 function ServicesSection() {
   const services = [
-    { icon: <Target size={28} />, title: "Estrategia de contenido", desc: "Auditamos tu presencia digital, definimos la narrativa de tu marca y creamos un calendario editorial mensual. Sabrás exactamente qué publicar, cuándo y por qué.", tag: "Planificación" },
-    { icon: <Video size={28} />, title: "Contenido para redes", desc: "Reels, TikToks, YouTube Shorts con Angela como presentadora. Unboxings, reviews, demos y contenido educativo, todo con narrativa pensada para conectar.", tag: "Producción" },
-    { icon: <Clapperboard size={28} />, title: "Producción audiovisual", desc: "Spots publicitarios, mini-documentales y brand films. Piezas de alto nivel con storytelling cinematográfico que cuentan la historia de tu marca.", tag: "Premium" },
-    { icon: <Upload size={28} />, title: "Gestión y publicación", desc: "Publicamos, optimizamos y medimos el rendimiento en todas las plataformas. Recibes un reporte mensual con resultados y claves para seguir creciendo.", tag: "Full service" },
+    { icon: <Target size={28} />, title: "Estrategia de contenido para marcas", desc: "Auditamos tu presencia digital, definimos la voz de marca y diseñamos un calendario editorial mensual orientado a resultados. Sabrás exactamente qué publicar, cuándo, en qué red y por qué.", tag: "Planificación" },
+    { icon: <Video size={28} />, title: "Creadores UGC para TikTok e Instagram", desc: "Reels, TikToks y YouTube Shorts con creadores UGC delante de la cámara. Unboxings, reviews, demos, POVs y contenido educativo con storytelling real que convierte en ventas.", tag: "Producción UGC" },
+    { icon: <Clapperboard size={28} />, title: "Producción audiovisual premium", desc: "Spots publicitarios, mini documentales y brand films. Piezas de alto nivel con storytelling cinematográfico para contar la historia de tu marca con calidad profesional.", tag: "Premium" },
+    { icon: <Upload size={28} />, title: "Gestión y publicación en redes", desc: "Publicamos, optimizamos y medimos el rendimiento en TikTok, Instagram, YouTube y LinkedIn. Cada mes recibes un reporte claro con métricas y claves para seguir creciendo.", tag: "Full service" },
   ];
   return (
     <section id="servicios" style={{ padding: "120px 24px", background: "linear-gradient(180deg, #F5F3FF 0%, #FDFAF2 100%)" }}>
@@ -368,6 +369,9 @@ function ServicesSection() {
               Todo lo que tu marca necesita.<br />
               <span style={{ color: "#06B6D4" }}>Nada que tú tengas que gestionar.</span>
             </h2>
+            <p style={{ color: "#6B7280", fontSize: 17, lineHeight: 1.8, maxWidth: 700, margin: "0 auto" }}>
+              Creación de contenido para marcas, UGC profesional y estrategia en redes sociales. Un único equipo que entiende tu negocio y entrega vídeos listos para publicar.
+            </p>
           </div>
         </FadeIn>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 24 }}>
@@ -706,14 +710,21 @@ function FooterSection() {
               <span style={{ color: "#fff", fontWeight: 800, fontSize: 18 }}>mochito</span>
               <span style={{ color: "#06B6D4", fontWeight: 300, fontSize: 18 }}>media</span>
             </div>
-            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14, maxWidth: 280, lineHeight: 1.6 }}>Tu historia merece ser contada. Nosotros sabemos cómo.</p>
+            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14, maxWidth: 280, lineHeight: 1.6 }}>Agencia de creadores UGC y creación de contenido con storytelling para marcas modernas.</p>
           </div>
           <div style={{ display: "flex", gap: 48, flexWrap: "wrap" }}>
             <div>
               <h4 style={{ color: "rgba(255,255,255,0.6)", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 16 }}>Navegación</h4>
-              {["Nosotros", "Servicios", "Portfolio", "Método", "Contacto"].map(l => (
-                <a key={l} href={`#${l.toLowerCase()}`} style={{ display: "block", color: "rgba(255,255,255,0.4)", textDecoration: "none", fontSize: 14, marginBottom: 8, transition: "color 0.3s" }}
-                  onMouseEnter={e => e.target.style.color = "#06B6D4"} onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.4)"}>{l}</a>
+              {[
+                { label: "Nosotros", href: "/#nosotros" },
+                { label: "Servicios", href: "/#servicios" },
+                { label: "Portfolio", href: "/#portfolio" },
+                { label: "Método", href: "/#metodo" },
+                { label: "Blog", href: "/blog" },
+                { label: "Contacto", href: "/#contacto" },
+              ].map(l => (
+                <a key={l.label} href={l.href} style={{ display: "block", color: "rgba(255,255,255,0.4)", textDecoration: "none", fontSize: 14, marginBottom: 8, transition: "color 0.3s" }}
+                  onMouseEnter={e => e.target.style.color = "#06B6D4"} onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.4)"}>{l.label}</a>
               ))}
             </div>
             <div>
