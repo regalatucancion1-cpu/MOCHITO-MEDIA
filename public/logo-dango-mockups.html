@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dango logo — aplicaciones reales</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
+    background: #F5F3EE;
+    color: #0B1220;
+    padding: 50px 24px 100px;
+    min-height: 100vh;
+  }
+  header { max-width: 1200px; margin: 0 auto 56px; text-align: center; }
+  h1 { font-size: 42px; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 16px; }
+  header p { color: #475569; font-size: 17px; line-height: 1.6; max-width: 640px; margin: 0 auto; }
+  h2.section {
+    max-width: 1200px;
+    margin: 64px auto 24px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #6B3DED;
+  }
+  .row {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 28px;
+    border: 1px solid rgba(11,18,32,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .card-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #64748B;
+  }
+  .card-title { font-size: 17px; font-weight: 700; color: #0B1220; }
+
+  /* ─── 1. Favicon browser tabs ─── */
+  .tabs { display: flex; gap: 4px; background: #E8E8E8; padding: 6px 6px 0; border-radius: 12px 12px 4px 4px; }
+  .tab {
+    background: #fff;
+    padding: 8px 14px;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #333;
+    min-width: 150px;
+  }
+  .tab.inactive { background: rgba(255,255,255,0.5); color: #666; }
+  .tab-favicon { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* ─── 2. IG / TikTok avatars ─── */
+  .avatar-light, .avatar-dark {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+  .avatar-light { background: #FDFAF2; border: 2px solid rgba(11,18,32,0.1); }
+  .avatar-dark { background: #0B1220; }
+  .avatar-light img, .avatar-dark img { width: 60%; height: 60%; }
+
+  /* ─── 3. Business card ─── */
+  .card-stack { display: flex; flex-direction: column; gap: 16px; align-items: center; }
+  .biz-card {
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 1.7 / 1;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 10px 30px rgba(11,18,32,0.15);
+    position: relative;
+  }
+  .biz-card.front { background: #0B1220; color: #FDFAF2; }
+  .biz-card.back { background: #FDFAF2; color: #0B1220; }
+  .biz-card .logo-row { display: flex; align-items: center; gap: 10px; }
+  .biz-card .logo-row img { width: 36px; height: 36px; }
+  .biz-card .wordmark { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
+  .biz-card .wordmark span { font-weight: 300; color: #06B6D4; }
+  .biz-card .name { font-size: 14px; font-weight: 700; }
+  .biz-card .role { font-size: 11px; opacity: 0.6; margin-top: 2px; }
+  .biz-card .contact { font-size: 10px; opacity: 0.7; line-height: 1.6; }
+  .biz-card.front .big-logo {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 80px;
+    height: 80px;
+    opacity: 0.15;
+  }
+
+  /* ─── 4. IG post / square ─── */
+  .ig-post {
+    aspect-ratio: 1 / 1;
+    background: #0B1220;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .ig-post .watermark {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #FDFAF2;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+  }
+  .ig-post .watermark img { width: 18px; height: 18px; }
+  .ig-post .big-center img { width: 180px; height: 180px; }
+
+  /* ─── 5. Story 9:16 ─── */
+  .story {
+    aspect-ratio: 9 / 16;
+    background: linear-gradient(160deg, #0B1220 0%, #6B3DED 100%);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    position: relative;
+    max-width: 220px;
+    margin: 0 auto;
+  }
+  .story .top-logo { display: flex; align-items: center; gap: 8px; color: #FDFAF2; }
+  .story .top-logo img { width: 26px; height: 26px; }
+  .story .top-logo span { font-size: 14px; font-weight: 800; }
+  .story .content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #FDFAF2;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .story .bottom {
+    text-align: center;
+    color: rgba(253,250,242,0.7);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ─── 6. Email signature ─── */
+  .email-sig {
+    background: #fff;
+    border-left: 3px solid #6B3DED;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+  .email-sig img { width: 48px; height: 48px; }
+  .email-sig .info { font-size: 13px; line-height: 1.55; }
+  .email-sig .info strong { display: block; font-size: 14px; color: #0B1220; }
+  .email-sig .info .role { color: #64748B; font-size: 11px; }
+  .email-sig .info a { color: #6B3DED; text-decoration: none; font-size: 11px; }
+
+  /* ─── 7. T-shirt ─── */
+  .tshirt-bg {
+    background: #1a1f2e;
+    border-radius: 16px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .tshirt-bg::before {
+    content: '';
+    position: absolute;
+    inset: 20px;
+    background: #2d3344;
+    border-radius: 100px 100px 20px 20px / 80px 80px 20px 20px;
+    clip-path: polygon(25% 0, 75% 0, 100% 18%, 100% 100%, 0 100%, 0 18%);
+  }
+  .tshirt-print {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20%;
+  }
+  .tshirt-print img { width: 100px; height: 100px; }
+  .tshirt-print .wm { color: #FDFAF2; font-size: 13px; font-weight: 800; letter-spacing: 1px; }
+
+  /* ─── 8. Phone icon ─── */
+  .phone-mock {
+    background: linear-gradient(180deg, #FF6B9D, #6B3DED);
+    border-radius: 28px;
+    aspect-ratio: 9 / 16;
+    max-width: 180px;
+    margin: 0 auto;
+    padding: 30px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .phone-icons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .phone-app {
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.15);
+  }
+  .phone-app.ours {
+    background: #0B1220;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+  .phone-app.ours img { width: 75%; height: 75%; }
+
+  /* ─── 9. Letterhead ─── */
+  .letterhead {
+    background: #FDFAF2;
+    padding: 24px;
+    aspect-ratio: 1 / 1.3;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    font-family: Georgia, serif;
+    color: #0B1220;
+  }
+  .letterhead .head { display: flex; align-items: center; gap: 10px; padding-bottom: 14px; border-bottom: 1px solid rgba(11,18,32,0.15); }
+  .letterhead .head img { width: 30px; height: 30px; }
+  .letterhead .head .wm { font-size: 16px; font-weight: 800; letter-spacing: -0.5px; }
+  .letterhead .head .wm span { font-weight: 300; color: #06B6D4; }
+  .letterhead .body { flex: 1; padding: 16px 0; font-size: 9px; line-height: 1.7; color: #475569; }
+  .letterhead .body p { margin-bottom: 8px; }
+  .letterhead .foot { font-size: 8px; color: #94A3B8; padding-top: 10px; border-top: 1px solid rgba(11,18,32,0.1); }
+
+  /* ─── 10. Tote / merch ─── */
+  .tote {
+    background: #FDFAF2;
+    aspect-ratio: 4 / 5;
+    border-radius: 8px 8px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30% 20px 30px;
+    position: relative;
+    box-shadow: inset 0 0 0 2px rgba(11,18,32,0.06);
+  }
+  .tote::before, .tote::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 14px;
+    height: 60px;
+    border: 3px solid rgba(11,18,32,0.25);
+    border-bottom: none;
+    border-radius: 30px 30px 0 0;
+  }
+  .tote::before { left: 28%; }
+  .tote::after { right: 28%; }
+  .tote img { width: 50%; height: auto; max-height: 100px; }
+  .tote .tag { margin-top: 14px; font-size: 14px; font-weight: 800; letter-spacing: -0.3px; color: #0B1220; }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    h1 { font-size: 32px; }
+    .row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <h1>Dango logo — en acción</h1>
+    <p>Aquí tienes la opción 06 aplicada a los sitios donde se suele usar un logo de marca. Mira cómo se ve en cada contexto antes de decidir.</p>
+  </header>
+
+  <!-- ─── BRANDING DIGITAL ─── -->
+  <h2 class="section">Redes sociales y digital</h2>
+  <div class="row">
+
+    <div class="card">
+      <div class="avatar-dark"><img src="/logo-mochi-06-light.svg" alt=""/></div>
+      <div>
+        <div class="card-label">Avatar Instagram/TikTok</div>
+        <div class="card-title">Fondo oscuro</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="avatar-light"><img src="/logo-mochi-06.svg" alt=""/></div>
+      <div>
+        <div class="card-label">Avatar Instagram/TikTok</div>
+        <div class="card-title">Fondo crema</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tabs">
+        <div class="tab"><img class="tab-favicon" src="/logo-mochi-06.svg" alt=""/>Mochito Media</div>
+        <div class="tab inactive">Gmail</div>
+      </div>
+      <div>
+        <div class="card-label">Pestaña navegador</div>
+        <div class="card-title">Favicon</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ─── POSTS Y STORIES ─── -->
+  <h2 class="section">Posts y stories</h2>
+  <div class="row">
+
+    <div class="card">
+      <div class="ig-post">
+        <div class="big-center"><img src="/logo-mochi-06-light.svg" alt=""/></div>
+        <div class="watermark">
+          <img src="/logo-mochi-06-light.svg" alt=""/>
+          <span>mochito<span style="font-weight:300;color:#06B6D4;">media</span></span>
+        </div>
+      </div>
+      <div>
+        <div class="card-label">Feed post 1:1</div>
+        <div class="card-title">Cover / plantilla</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="story">
+        <div class="top-logo">
+          <img src="/logo-mochi-06-light.svg" alt=""/>
+          <span>mochito<span style="font-weight:300;color:#06B6D4;">media</span></span>
+        </div>
+        <div class="content">Tu marca<br/>tiene una voz</div>
+        <div class="bottom">STORYTELLING REAL</div>
+      </div>
+      <div>
+        <div class="card-label">Story 9:16</div>
+        <div class="card-title">Vertical post</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="phone-mock">
+        <div class="phone-icons">
+          <div class="phone-app"></div>
+          <div class="phone-app"></div>
+          <div class="phone-app"></div>
+          <div class="phone-app ours"><img src="/logo-mochi-06-light.svg" alt=""/></div>
+          <div class="phone-app"></div>
+          <div class="phone-app"></div>
+          <div class="phone-app"></div>
+          <div class="phone-app"></div>
+        </div>
+      </div>
+      <div>
+        <div class="card-label">App icon</div>
+        <div class="card-title">Home screen</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ─── PAPELERÍA ─── -->
+  <h2 class="section">Papelería y físico</h2>
+  <div class="row">
+
+    <div class="card">
+      <div class="card-stack">
+        <div class="biz-card front">
+          <div class="logo-row">
+            <img src="/logo-mochi-06-light.svg" alt=""/>
+            <span class="wordmark">mochito<span>media</span></span>
+          </div>
+          <img class="big-logo" src="/logo-mochi-06-light.svg" alt=""/>
+          <div>
+            <div class="name">Christian Pujol</div>
+            <div class="role">Co-fundador</div>
+          </div>
+        </div>
+        <div class="biz-card back">
+          <div class="logo-row">
+            <img src="/logo-mochi-06.svg" alt=""/>
+            <span class="wordmark" style="color:#0B1220;">mochito<span>media</span></span>
+          </div>
+          <div class="contact">
+            mochitomedia@gmail.com<br/>
+            mochitomedia.com<br/>
+            Barcelona · España
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card-label">Tarjeta visita</div>
+        <div class="card-title">Front + back</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="email-sig">
+        <img src="/logo-mochi-06.svg" alt=""/>
+        <div class="info">
+          <strong>Christian Pujol</strong>
+          <div class="role">Co-fundador · Mochito Media</div>
+          <a href="#">mochitomedia@gmail.com</a>
+        </div>
+      </div>
+      <div>
+        <div class="card-label">Firma email</div>
+        <div class="card-title">Signature</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="letterhead">
+        <div class="head">
+          <img src="/logo-mochi-06.svg" alt=""/>
+          <span class="wm">mochito<span>media</span></span>
+        </div>
+        <div class="body">
+          <p>Barcelona, 13 de abril de 2026</p>
+          <p>Estimado cliente,</p>
+          <p>Nos complace presentar la propuesta de creación de contenido UGC para tu marca, con los siguientes entregables y estrategia de distribución en redes sociales.</p>
+          <p>Quedamos a tu disposición para cualquier pregunta.</p>
+        </div>
+        <div class="foot">mochitomedia.com · mochitomedia@gmail.com</div>
+      </div>
+      <div>
+        <div class="card-label">Propuesta</div>
+        <div class="card-title">Letterhead</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ─── MERCH ─── -->
+  <h2 class="section">Merch y branding físico</h2>
+  <div class="row">
+
+    <div class="card">
+      <div class="tshirt-bg">
+        <div class="tshirt-print">
+          <img src="/logo-mochi-06-light.svg" alt=""/>
+          <span class="wm">MOCHITO MEDIA</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-label">Camiseta oscura</div>
+        <div class="card-title">Print pecho</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tote">
+        <img src="/logo-mochi-06.svg" alt=""/>
+        <div class="tag">mochito media</div>
+      </div>
+      <div>
+        <div class="card-label">Tote bag</div>
+        <div class="card-title">Merch</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ig-post" style="background:#FDFAF2;">
+        <div class="big-center"><img src="/logo-mochi-06.svg" alt=""/></div>
+        <div class="watermark" style="color:#0B1220;">
+          <img src="/logo-mochi-06.svg" alt=""/>
+          <span>mochito<span style="font-weight:300;color:#6B3DED;">media</span></span>
+        </div>
+      </div>
+      <div>
+        <div class="card-label">Sticker / pegatina</div>
+        <div class="card-title">Versión crema</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
