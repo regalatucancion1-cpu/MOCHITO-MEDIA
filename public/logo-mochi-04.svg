@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- 04. Mochi con costura (outline con pliegue central) -->
+  <circle cx="32" cy="32" r="22" stroke="#0B1220" stroke-width="4" fill="none"/>
+  <path d="M 32 12 Q 26 32 32 52" stroke="#0B1220" stroke-width="3" stroke-linecap="round" fill="none"/>
+</svg>
