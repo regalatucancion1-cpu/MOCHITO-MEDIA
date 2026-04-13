@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mochito Media — Paletas mediterráneas</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
+    background: #EFEAE0;
+    padding: 50px 24px 100px;
+    min-height: 100vh;
+  }
+  .wrapper { max-width: 1200px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 64px; }
+  header h1 { font-size: 42px; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 16px; color: #1C1410; }
+  header p { color: #5C5048; font-size: 17px; line-height: 1.6; max-width: 640px; margin: 0 auto; }
+
+  .palette-block {
+    margin-bottom: 80px;
+  }
+  .palette-title {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 4px;
+    color: #1C1410;
+  }
+  .palette-title .letter {
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: -3px;
+  }
+  .palette-title .name {
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .palette-subtitle {
+    font-size: 15px;
+    color: #5C5048;
+    margin-bottom: 24px;
+    max-width: 680px;
+  }
+
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .swatch {
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .swatch .hex {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-family: 'SF Mono', Monaco, monospace;
+  }
+  .swatch .role {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+    opacity: 0.7;
+  }
+
+  /* Mini mockup hero */
+  .mockup {
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(28, 20, 16, 0.12);
+  }
+  .mockup .navbar {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .mockup .navbar .brand { display: flex; align-items: center; gap: 10px; }
+  .mockup .navbar .brand svg { width: 32px; height: 32px; }
+  .mockup .navbar .brand .word { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; }
+  .mockup .navbar .brand .word .media { font-weight: 300; }
+  .mockup .navbar .btn {
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .mockup .hero {
+    padding: 60px 40px 72px;
+  }
+  .mockup .hero .badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .mockup .hero h2 {
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 18px;
+  }
+  .mockup .hero h2 em {
+    font-style: normal;
+  }
+  .mockup .hero p {
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 500px;
+    margin-bottom: 32px;
+    opacity: 0.85;
+  }
+  .mockup .hero .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .mockup .hero .cta {
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .mockup .hero .cta.secondary {
+    background: transparent;
+    padding: 14px 28px;
+  }
+
+  /* ─── PALETTE A: Terracotta & olive ─── */
+  .pa .mockup { background: #F5EEDC; }
+  .pa .mockup .navbar { background: #2A1E18; }
+  .pa .mockup .navbar .brand { color: #F5EEDC; }
+  .pa .mockup .navbar .brand svg { fill: #F5EEDC; }
+  .pa .mockup .navbar .brand .word .media { color: #D4603E; }
+  .pa .mockup .navbar .btn { background: #D4603E; color: #F5EEDC; }
+  .pa .mockup .hero { background: #F5EEDC; color: #2A1E18; }
+  .pa .mockup .hero .badge { background: rgba(212,96,62,0.12); color: #D4603E; }
+  .pa .mockup .hero h2 em { color: #D4603E; }
+  .pa .mockup .hero .cta { background: #2A1E18; color: #F5EEDC; }
+  .pa .mockup .hero .cta.secondary { color: #2A1E18; border: 1.5px solid rgba(42,30,24,0.25); }
+
+  /* ─── PALETTE B: Sunset coral ─── */
+  .pb .mockup { background: #FCEBD4; }
+  .pb .mockup .navbar { background: #3D2817; }
+  .pb .mockup .navbar .brand { color: #FCEBD4; }
+  .pb .mockup .navbar .brand svg { fill: #FCEBD4; }
+  .pb .mockup .navbar .brand .word .media { color: #E9C46A; }
+  .pb .mockup .navbar .btn { background: #E76F51; color: #FCEBD4; }
+  .pb .mockup .hero { background: #FCEBD4; color: #3D2817; }
+  .pb .mockup .hero .badge { background: rgba(231,111,81,0.15); color: #C4492A; }
+  .pb .mockup .hero h2 em { color: #E76F51; }
+  .pb .mockup .hero .cta { background: #E76F51; color: #FCEBD4; }
+  .pb .mockup .hero .cta.secondary { color: #3D2817; border: 1.5px solid rgba(61,40,23,0.25); }
+
+  /* ─── PALETTE C: Olive & ochre ─── */
+  .pc .mockup { background: #F7F0DD; }
+  .pc .mockup .navbar { background: #3D4A35; }
+  .pc .mockup .navbar .brand { color: #F7F0DD; }
+  .pc .mockup .navbar .brand svg { fill: #F7F0DD; }
+  .pc .mockup .navbar .brand .word .media { color: #D4A84A; }
+  .pc .mockup .navbar .btn { background: #C6553E; color: #F7F0DD; }
+  .pc .mockup .hero { background: #F7F0DD; color: #1F1A12; }
+  .pc .mockup .hero .badge { background: rgba(198,85,62,0.12); color: #C6553E; }
+  .pc .mockup .hero h2 em { color: #C6553E; }
+  .pc .mockup .hero .cta { background: #3D4A35; color: #F7F0DD; }
+  .pc .mockup .hero .cta.secondary { color: #1F1A12; border: 1.5px solid rgba(31,26,18,0.25); }
+
+  /* Swatch colors per palette */
+  .pa .s1 { background: #2A1E18; color: #F5EEDC; }
+  .pa .s2 { background: #F5EEDC; color: #2A1E18; }
+  .pa .s3 { background: #D4603E; color: #F5EEDC; }
+  .pa .s4 { background: #E5B24C; color: #2A1E18; }
+  .pa .s5 { background: #7A8B5C; color: #F5EEDC; }
+
+  .pb .s1 { background: #3D2817; color: #FCEBD4; }
+  .pb .s2 { background: #FCEBD4; color: #3D2817; }
+  .pb .s3 { background: #E76F51; color: #FCEBD4; }
+  .pb .s4 { background: #E9C46A; color: #3D2817; }
+  .pb .s5 { background: #2A9D8F; color: #FCEBD4; }
+
+  .pc .s1 { background: #3D4A35; color: #F7F0DD; }
+  .pc .s2 { background: #F7F0DD; color: #1F1A12; }
+  .pc .s3 { background: #C6553E; color: #F7F0DD; }
+  .pc .s4 { background: #D4A84A; color: #1F1A12; }
+  .pc .s5 { background: #8AB17D; color: #F7F0DD; }
+
+  @media (max-width: 680px) {
+    header h1 { font-size: 32px; }
+    .palette-title .letter { font-size: 40px; }
+    .palette-title .name { font-size: 17px; }
+    .mockup .hero { padding: 40px 24px 50px; }
+    .mockup .hero h2 { font-size: 30px; }
+    .mockup .navbar { padding: 14px 18px; }
+    .mockup .navbar .btn { padding: 8px 16px; font-size: 11px; }
+    .swatches { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+    .swatch { padding: 8px; }
+    .swatch .hex { font-size: 9px; }
+    .swatch .role { font-size: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <h1>3 paletas mediterráneas</h1>
+    <p>Cálidas, cercanas y lejos del azul corporativo. Cada paleta está aplicada a un mini mockup del hero para que veas cómo quedaría la web real. Dime la letra (A, B o C) y la aplico a todo.</p>
+  </header>
+
+  <!-- ───────────── PALETTE A ───────────── -->
+  <div class="palette-block pa">
+    <div class="palette-title">
+      <span class="letter">A</span>
+      <span class="name">Terracota & Olivo</span>
+    </div>
+    <p class="palette-subtitle">Tierra cocida, crema de lino y un toque de olivo. Barcelona de pueblo antiguo, amistad de sobremesa, sin estridencias. La opción más "cercana y cálida" sin perder elegancia.</p>
+
+    <div class="swatches">
+      <div class="swatch s1"><div class="hex">#2A1E18</div><div class="role">Tinta cálida</div></div>
+      <div class="swatch s2"><div class="hex">#F5EEDC</div><div class="role">Lino</div></div>
+      <div class="swatch s3"><div class="hex">#D4603E</div><div class="role">Terracota</div></div>
+      <div class="swatch s4"><div class="hex">#E5B24C</div><div class="role">Ocre</div></div>
+      <div class="swatch s5"><div class="hex">#7A8B5C</div><div class="role">Olivo</div></div>
+    </div>
+
+    <div class="mockup">
+      <div class="navbar">
+        <div class="brand">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="32" r="9"/><circle cx="32" cy="32" r="9"/><circle cx="50" cy="32" r="9"/></svg>
+          <span class="word">mochito <span class="media">media</span></span>
+        </div>
+        <div class="btn">Hablemos</div>
+      </div>
+      <div class="hero">
+        <div class="badge">Creadores UGC, storytelling real</div>
+        <h2>Tu marca tiene una <em>voz</em><br/>que merece ser contada.</h2>
+        <p>Somos una agencia de creadores UGC para startups y pequeñas empresas. Contenido con alma mediterránea que conecta y vende.</p>
+        <div class="cta-row">
+          <div class="cta">Hablemos de tu proyecto</div>
+          <div class="cta secondary">Ver portfolio</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───────────── PALETTE B ───────────── -->
+  <div class="palette-block pb">
+    <div class="palette-title">
+      <span class="letter">B</span>
+      <span class="name">Atardecer Mediterráneo</span>
+    </div>
+    <p class="palette-subtitle">Coral del sol poniéndose, crema melocotón y ocre dorado. Valencia en verano, fiesta del pueblo, chiringuito en la Barceloneta. Más vibrante, más joven, más energético. Con un punto de teal oscuro como guiño al mar.</p>
+
+    <div class="swatches">
+      <div class="swatch s1"><div class="hex">#3D2817</div><div class="role">Chocolate</div></div>
+      <div class="swatch s2"><div class="hex">#FCEBD4</div><div class="role">Melocotón</div></div>
+      <div class="swatch s3"><div class="hex">#E76F51</div><div class="role">Coral</div></div>
+      <div class="swatch s4"><div class="hex">#E9C46A</div><div class="role">Ocre dorado</div></div>
+      <div class="swatch s5"><div class="hex">#2A9D8F</div><div class="role">Teal mar</div></div>
+    </div>
+
+    <div class="mockup">
+      <div class="navbar">
+        <div class="brand">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="32" r="9"/><circle cx="32" cy="32" r="9"/><circle cx="50" cy="32" r="9"/></svg>
+          <span class="word">mochito <span class="media">media</span></span>
+        </div>
+        <div class="btn">Hablemos</div>
+      </div>
+      <div class="hero">
+        <div class="badge">Creadores UGC, storytelling real</div>
+        <h2>Tu marca tiene una <em>voz</em><br/>que merece ser contada.</h2>
+        <p>Somos una agencia de creadores UGC para startups y pequeñas empresas. Contenido con alma mediterránea que conecta y vende.</p>
+        <div class="cta-row">
+          <div class="cta">Hablemos de tu proyecto</div>
+          <div class="cta secondary">Ver portfolio</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───────────── PALETTE C ───────────── -->
+  <div class="palette-block pc">
+    <div class="palette-title">
+      <span class="letter">C</span>
+      <span class="name">Huerta & Cerámica</span>
+    </div>
+    <p class="palette-subtitle">Verde olivo profundo como color principal (en vez del clásico negro/navy), terracota como acento y ocre mostaza. La opción más diferente de todas: nadie en el sector usa olivo. Elegante, campestre, raíz.</p>
+
+    <div class="swatches">
+      <div class="swatch s1"><div class="hex">#3D4A35</div><div class="role">Olivo profundo</div></div>
+      <div class="swatch s2"><div class="hex">#F7F0DD</div><div class="role">Lino</div></div>
+      <div class="swatch s3"><div class="hex">#C6553E</div><div class="role">Terracota</div></div>
+      <div class="swatch s4"><div class="hex">#D4A84A</div><div class="role">Mostaza</div></div>
+      <div class="swatch s5"><div class="hex">#8AB17D</div><div class="role">Salvia</div></div>
+    </div>
+
+    <div class="mockup">
+      <div class="navbar">
+        <div class="brand">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="32" r="9"/><circle cx="32" cy="32" r="9"/><circle cx="50" cy="32" r="9"/></svg>
+          <span class="word">mochito <span class="media">media</span></span>
+        </div>
+        <div class="btn">Hablemos</div>
+      </div>
+      <div class="hero">
+        <div class="badge">Creadores UGC, storytelling real</div>
+        <h2>Tu marca tiene una <em>voz</em><br/>que merece ser contada.</h2>
+        <p>Somos una agencia de creadores UGC para startups y pequeñas empresas. Contenido con alma mediterránea que conecta y vende.</p>
+        <div class="cta-row">
+          <div class="cta">Hablemos de tu proyecto</div>
+          <div class="cta secondary">Ver portfolio</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
