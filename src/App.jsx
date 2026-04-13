@@ -331,7 +331,7 @@ function AboutSection() {
               </p>
             </div>
             {/* Stats */}
-            <div style={{ display: "flex", gap: 40, justifyContent: "center" }}>
+            <div style={{ display: "flex", gap: 32, justifyContent: "center", flexWrap: "wrap" }}>
               {[
                 { n: 92, s: "%", l: "confían más en personas que en marcas" },
                 { n: 3, s: "x", l: "más engagement con storytelling" },
@@ -634,7 +634,7 @@ function ContactSection() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} style={{ background: "#fff", borderRadius: 24, padding: "48px 40px", border: "1px solid #EFE7D6", boxShadow: "0 8px 40px rgba(11,18,32,0.05)" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 20, marginBottom: 20 }}>
                 <div>
                   <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#0F172A", marginBottom: 6 }}>Nombre</label>
                   <input style={inputStyle} placeholder="Tu nombre" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})}
