@@ -1,0 +1,726 @@
+import { useState, useEffect, useRef } from "react";
+import { Play, ArrowDown, Users, Video, BarChart3, Upload, Sparkles, Target, Zap, Heart, Menu, X, Send, Instagram, Youtube, Linkedin, ChevronRight, Eye, Film, Clapperboard, MessageCircle } from "lucide-react";
+
+// ─── Intersection Observer Hook ───
+function useInView(threshold = 0.15) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true); }, { threshold });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return [ref, inView];
+}
+
+// ─── Animated Counter ───
+function Counter({ end, suffix = "", duration = 2000 }) {
+  const [count, setCount] = useState(0);
+  const [ref, inView] = useInView();
+  useEffect(() => {
+    if (!inView) return;
+    let start = 0;
+    const step = end / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= end) { setCount(end); clearInterval(timer); }
+      else setCount(Math.floor(start));
+    }, 16);
+    return () => clearInterval(timer);
+  }, [inView, end, duration]);
+  return <span ref={ref}>{count}{suffix}</span>;
+}
+
+// ─── Fade-in wrapper ───
+function FadeIn({ children, delay = 0, direction = "up", className = "" }) {
+  const [ref, inView] = useInView(0.1);
+  const transforms = { up: "translateY(60px)", down: "translateY(-60px)", left: "translateX(60px)", right: "translateX(-60px)", none: "none" };
+  return (
+    <div ref={ref} className={className} style={{
+      opacity: inView ? 1 : 0,
+      transform: inView ? "none" : transforms[direction],
+      transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
+    }}>{children}</div>
+  );
+}
+
+// ─── Navbar ───
+function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => {
+    const h = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", h);
+    return () => window.removeEventListener("scroll", h);
+  }, []);
+  const links = [
+    { label: "Nosotros", href: "#nosotros" },
+    { label: "Servicios", href: "#servicios" },
+    { label: "Portfolio", href: "#portfolio" },
+    { label: "Método", href: "#metodo" },
+    { label: "Contacto", href: "#contacto" },
+  ];
+  return (
+    <nav style={{
+      position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000,
+      background: scrolled ? "rgba(27,67,50,0.97)" : "transparent",
+      backdropFilter: scrolled ? "blur(20px)" : "none",
+      transition: "all 0.4s ease",
+      borderBottom: scrolled ? "1px solid rgba(82,183,136,0.2)" : "none",
+    }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <a href="#hero" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 8 }}>
+          <div style={{ width: 36, height: 36, borderRadius: 10, background: "linear-gradient(135deg, #06B6D4, #6B3DED)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Sparkles size={20} color="#fff" />
+          </div>
+          <span style={{ color: "#fff", fontWeight: 800, fontSize: 20, letterSpacing: "-0.5px" }}>mochito</span>
+          <span style={{ color: "#06B6D4", fontWeight: 300, fontSize: 20 }}>media</span>
+        </a>
+        {/* Desktop */}
+        <div style={{ display: "flex", alignItems: "center", gap: 32 }} className="hidden-mobile">
+          {links.map(l => (
+            <a key={l.href} href={l.href} style={{ color: "rgba(255,255,255,0.8)", textDecoration: "none", fontSize: 14, fontWeight: 500, letterSpacing: "0.5px", transition: "color 0.3s" }}
+              onMouseEnter={e => e.target.style.color = "#06B6D4"} onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.8)"}>{l.label}</a>
+          ))}
+          <a href="#contacto" style={{
+            background: "linear-gradient(135deg, #06B6D4, #7C3AED)", color: "#fff", padding: "10px 24px",
+            borderRadius: 50, fontSize: 14, fontWeight: 600, textDecoration: "none", transition: "transform 0.3s, box-shadow 0.3s",
+            boxShadow: "0 4px 15px rgba(82,183,136,0.3)",
+          }} onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.boxShadow = "0 6px 25px rgba(82,183,136,0.5)"; }}
+            onMouseLeave={e => { e.target.style.transform = "none"; e.target.style.boxShadow = "0 4px 15px rgba(82,183,136,0.3)"; }}>Hablemos</a>
+        </div>
+        {/* Mobile toggle */}
+        <button onClick={() => setMenuOpen(!menuOpen)} style={{ background: "none", border: "none", color: "#fff", cursor: "pointer", display: "none" }} className="show-mobile">
+          {menuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div style={{ background: "rgba(27,67,50,0.98)", padding: "20px 24px", display: "flex", flexDirection: "column", gap: 16 }}>
+          {links.map(l => (
+            <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} style={{ color: "#fff", textDecoration: "none", fontSize: 18, fontWeight: 500 }}>{l.label}</a>
+          ))}
+        </div>
+      )}
+    </nav>
+  );
+}
+
+// ─── Hero ───
+function Hero() {
+  const [textIdx, setTextIdx] = useState(0);
+  const words = ["historia", "esencia", "vision", "marca"];
+  useEffect(() => {
+    const t = setInterval(() => setTextIdx(i => (i + 1) % words.length), 2500);
+    return () => clearInterval(t);
+  }, []);
+  return (
+    <section id="hero" style={{
+      minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center",
+      background: "linear-gradient(160deg, #0D1B15 0%, #0F172A 40%, #6B3DED 100%)",
+      position: "relative", overflow: "hidden",
+    }}>
+      {/* Animated bg orbs */}
+      <div style={{ position: "absolute", top: "-20%", right: "-10%", width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle, rgba(82,183,136,0.15) 0%, transparent 70%)", animation: "float 8s ease-in-out infinite" }} />
+      <div style={{ position: "absolute", bottom: "-15%", left: "-5%", width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(45,106,79,0.2) 0%, transparent 70%)", animation: "float 10s ease-in-out infinite reverse" }} />
+      {/* Grid pattern overlay */}
+      <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(rgba(82,183,136,0.07) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+
+      <div style={{ position: "relative", zIndex: 2, textAlign: "center", maxWidth: 900, padding: "0 24px" }}>
+        <FadeIn delay={0.1}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(82,183,136,0.15)", border: "1px solid rgba(82,183,136,0.3)", borderRadius: 50, padding: "8px 20px", marginBottom: 32 }}>
+            <Sparkles size={14} color="#06B6D4" />
+            <span style={{ color: "#06B6D4", fontSize: 13, fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase" }}>Storytelling que conecta</span>
+          </div>
+        </FadeIn>
+        <FadeIn delay={0.3}>
+          <h1 style={{ fontSize: "clamp(40px, 7vw, 80px)", fontWeight: 800, color: "#fff", lineHeight: 1.05, margin: "0 0 24px", letterSpacing: "-2px" }}>
+            Tu marca tiene una<br />
+            <span style={{ position: "relative", display: "inline-block" }}>
+              <span style={{ background: "linear-gradient(135deg, #06B6D4, #14B8A6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{words[textIdx]}</span>
+              <span style={{ position: "absolute", bottom: -4, left: 0, right: 0, height: 4, background: "linear-gradient(90deg, #06B6D4, transparent)", borderRadius: 2 }} />
+            </span>
+            <br />que merece ser contada.
+          </h1>
+        </FadeIn>
+        <FadeIn delay={0.5}>
+          <p style={{ fontSize: "clamp(16px, 2.5vw, 21px)", color: "rgba(255,255,255,0.7)", maxWidth: 620, margin: "0 auto 40px", lineHeight: 1.7, fontWeight: 300 }}>
+            Creamos contenido con storytelling para startups y marcas digitales que necesitan frescura, autenticidad y a alguien que dé la cara por ellas.
+          </p>
+        </FadeIn>
+        <FadeIn delay={0.7}>
+          <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
+            <a href="#contacto" style={{
+              background: "linear-gradient(135deg, #06B6D4, #7C3AED)", color: "#fff", padding: "16px 36px",
+              borderRadius: 50, fontSize: 16, fontWeight: 700, textDecoration: "none",
+              boxShadow: "0 8px 30px rgba(82,183,136,0.4)", transition: "all 0.3s",
+              display: "flex", alignItems: "center", gap: 8,
+            }}>Hablemos de tu proyecto <ChevronRight size={18} /></a>
+            <a href="#portfolio" style={{
+              background: "rgba(255,255,255,0.08)", color: "#fff", padding: "16px 36px",
+              borderRadius: 50, fontSize: 16, fontWeight: 500, textDecoration: "none",
+              border: "1px solid rgba(255,255,255,0.15)", transition: "all 0.3s",
+              display: "flex", alignItems: "center", gap: 8,
+            }}><Play size={16} /> Ver portfolio</a>
+          </div>
+        </FadeIn>
+        <FadeIn delay={1}>
+          <div style={{ marginTop: 60 }}>
+            <a href="#problema" style={{ color: "rgba(255,255,255,0.4)", animation: "bounce 2s infinite" }}>
+              <ArrowDown size={24} />
+            </a>
+          </div>
+        </FadeIn>
+      </div>
+
+      <style>{`
+        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+        @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+        .hidden-mobile {}
+        .show-mobile { display: none !important; }
+      `}</style>
+    </section>
+  );
+}
+
+// ─── Problem Section ───
+function ProblemSection() {
+  const problems = [
+    { icon: <Users size={28} />, title: "No tienes equipo creativo", desc: "Contratar un equipo de contenido interno es caro y lento. Necesitas alguien que entienda tu marca y produzca desde el día uno." },
+    { icon: <Video size={28} />, title: "Nadie quiere dar la cara", desc: "Los formatos que mejor funcionan necesitan a una persona real delante de la cámara. Pero en tu equipo nadie quiere o sabe hacerlo." },
+    { icon: <BarChart3 size={28} />, title: "Publicas, pero no conecta", desc: "Sin storytelling, el contenido se pierde en el ruido. No basta con publicar: hay que contar algo que importe." },
+  ];
+  return (
+    <section id="problema" style={{ padding: "120px 24px", background: "#FAFCFB" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <FadeIn>
+          <div style={{ textAlign: "center", marginBottom: 64 }}>
+            <span style={{ color: "#06B6D4", fontSize: 13, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", display: "block", marginBottom: 16 }}>El problema</span>
+            <h2 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, color: "#0F172A", lineHeight: 1.1, margin: "0 0 20px", letterSpacing: "-1px" }}>
+              Sabes que necesitas contenido.<br />
+              <span style={{ color: "#06B6D4" }}>Pero no tienes quién lo haga.</span>
+            </h2>
+            <p style={{ color: "#6B7280", fontSize: 18, maxWidth: 600, margin: "0 auto", lineHeight: 1.7 }}>
+              El 90% de las startups se enfrentan al mismo muro. Tres barreras que les frenan en seco.
+            </p>
+          </div>
+        </FadeIn>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 24 }}>
+          {problems.map((p, i) => (
+            <FadeIn key={i} delay={i * 0.15}>
+              <div style={{
+                background: "#fff", borderRadius: 20, padding: 40, border: "1px solid #E8F0EC",
+                transition: "all 0.4s", cursor: "default", position: "relative", overflow: "hidden",
+              }} onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-8px)"; e.currentTarget.style.boxShadow = "0 20px 60px rgba(27,67,50,0.1)"; e.currentTarget.style.borderColor = "#06B6D4"; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.borderColor = "#E8F0EC"; }}>
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "linear-gradient(90deg, #06B6D4, #6B3DED)", opacity: 0, transition: "opacity 0.4s" }}
+                  className="card-bar" />
+                <div style={{ width: 56, height: 56, borderRadius: 16, background: "linear-gradient(135deg, rgba(82,183,136,0.1), rgba(45,106,79,0.1))", display: "flex", alignItems: "center", justifyContent: "center", color: "#6B3DED", marginBottom: 24 }}>
+                  {p.icon}
+                </div>
+                <h3 style={{ fontSize: 22, fontWeight: 700, color: "#0F172A", marginBottom: 12 }}>{p.title}</h3>
+                <p style={{ color: "#6B7280", fontSize: 16, lineHeight: 1.7, margin: 0 }}>{p.desc}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── About / Solution ───
+function AboutSection() {
+  return (
+    <section id="nosotros" style={{ padding: "120px 24px", background: "#fff" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        {/* Top: Intro text */}
+        <FadeIn>
+          <div style={{ textAlign: "center", marginBottom: 64 }}>
+            <span style={{ color: "#06B6D4", fontSize: 13, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", display: "block", marginBottom: 16 }}>Nosotros</span>
+            <h2 style={{ fontSize: "clamp(32px, 4vw, 48px)", fontWeight: 800, color: "#0F172A", lineHeight: 1.1, margin: "0 0 24px", letterSpacing: "-1px" }}>
+              Somos Mochito Media.<br />
+              <span style={{ color: "#06B6D4" }}>Tu equipo creativo externo.</span>
+            </h2>
+            <p style={{ color: "#6B7280", fontSize: 17, lineHeight: 1.8, maxWidth: 700, margin: "0 auto 0" }}>
+              Nacimos para resolver un problema real: miles de marcas necesitan contenido fresco y auténtico pero no tienen a nadie para producirlo. Nosotros nos encargamos de todo — desde la estrategia hasta la publicación — para que tú solo tengas que preocuparte de hacer crecer tu negocio.
+            </p>
+          </div>
+        </FadeIn>
+
+        {/* Team cards */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 32, marginBottom: 56 }}>
+          {/* Angela */}
+          <FadeIn delay={0.1}>
+            <div style={{
+              borderRadius: 24, overflow: "hidden", background: "#fff",
+              border: "1px solid #E8F0EC", transition: "all 0.4s",
+            }} onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-8px)"; e.currentTarget.style.boxShadow = "0 20px 60px rgba(27,67,50,0.1)"; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+              <div style={{
+                aspectRatio: "4/3", background: "linear-gradient(160deg, #0F172A, #6B3DED)",
+                display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+                color: "rgba(255,255,255,0.3)", position: "relative",
+              }}>
+                <Film size={56} />
+                <span style={{ marginTop: 12, fontSize: 13, fontWeight: 500 }}>Foto de Angela</span>
+                {/* Role badge */}
+                <div style={{
+                  position: "absolute", top: 16, right: 16,
+                  background: "rgba(82,183,136,0.9)", color: "#fff", fontSize: 11, fontWeight: 700,
+                  padding: "6px 14px", borderRadius: 50, letterSpacing: "0.5px", textTransform: "uppercase",
+                }}>La voz que conecta</div>
+              </div>
+              <div style={{ padding: "28px 32px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 10, background: "linear-gradient(135deg, #06B6D4, #6B3DED)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <Video size={18} color="#fff" />
+                  </div>
+                  <div>
+                    <div style={{ fontWeight: 800, color: "#0F172A", fontSize: 20 }}>Angela</div>
+                    <div style={{ color: "#06B6D4", fontSize: 13, fontWeight: 600 }}>Directora creativa y presentadora</div>
+                  </div>
+                </div>
+                <p style={{ color: "#6B7280", fontSize: 15, lineHeight: 1.7, margin: 0 }}>
+                  La cara visible de Mochito Media. No es una influencer contratada: es parte del proyecto, y eso se nota. Su cercanía, naturalidad y capacidad de conectar con la cámara convierten cualquier producto en una historia que engancha.
+                </p>
+              </div>
+            </div>
+          </FadeIn>
+
+          {/* Christian */}
+          <FadeIn delay={0.25}>
+            <div style={{
+              borderRadius: 24, overflow: "hidden", background: "#fff",
+              border: "1px solid #E8F0EC", transition: "all 0.4s",
+            }} onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-8px)"; e.currentTarget.style.boxShadow = "0 20px 60px rgba(27,67,50,0.1)"; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+              <div style={{
+                aspectRatio: "4/3", background: "linear-gradient(160deg, #6B3DED, #7C3AED)",
+                display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+                color: "rgba(255,255,255,0.3)", position: "relative",
+              }}>
+                <Clapperboard size={56} />
+                <span style={{ marginTop: 12, fontSize: 13, fontWeight: 500 }}>Foto de Christian</span>
+                {/* Role badge */}
+                <div style={{
+                  position: "absolute", top: 16, right: 16,
+                  background: "rgba(27,67,50,0.9)", color: "#fff", fontSize: 11, fontWeight: 700,
+                  padding: "6px 14px", borderRadius: 50, letterSpacing: "0.5px", textTransform: "uppercase",
+                }}>Productor</div>
+              </div>
+              <div style={{ padding: "28px 32px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 10, background: "linear-gradient(135deg, #6B3DED, #0F172A)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <Clapperboard size={18} color="#fff" />
+                  </div>
+                  <div>
+                    <div style={{ fontWeight: 800, color: "#0F172A", fontSize: 20 }}>Christian</div>
+                    <div style={{ color: "#06B6D4", fontSize: 13, fontWeight: 600 }}>Productor y estrategia</div>
+                  </div>
+                </div>
+                <p style={{ color: "#6B7280", fontSize: 15, lineHeight: 1.7, margin: 0 }}>
+                  La mente detrás de la producción. Se encarga de que cada pieza tenga la calidad, la narrativa y la estrategia que necesita. Del concepto al resultado final, Christian es quien hace que todo funcione.
+                </p>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+
+        {/* Quote + Stats */}
+        <FadeIn delay={0.3}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 32, alignItems: "center" }}>
+            {/* Quote */}
+            <div style={{ borderLeft: "3px solid #06B6D4", paddingLeft: 24 }}>
+              <p style={{ color: "#0F172A", fontSize: 19, fontWeight: 600, fontStyle: "italic", lineHeight: 1.6, margin: 0 }}>
+                "No hacemos contenido por hacer. Contamos historias que conectan, emocionan y venden. Porque el buen storytelling hace las tres cosas a la vez."
+              </p>
+            </div>
+            {/* Stats */}
+            <div style={{ display: "flex", gap: 40, justifyContent: "center" }}>
+              {[
+                { n: 92, s: "%", l: "confían más en personas que en marcas" },
+                { n: 3, s: "x", l: "más engagement con storytelling" },
+                { n: 80, s: "%", l: "más recuerdo de marca" },
+              ].map((s, i) => (
+                <div key={i} style={{ textAlign: "center" }}>
+                  <div style={{ fontSize: 32, fontWeight: 800, color: "#6B3DED" }}><Counter end={s.n} />{s.s}</div>
+                  <div style={{ fontSize: 12, color: "#6B7280", maxWidth: 100, lineHeight: 1.4, marginTop: 4 }}>{s.l}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </FadeIn>
+      </div>
+    </section>
+  );
+}
+
+// ─── Services ───
+function ServicesSection() {
+  const services = [
+    { icon: <Target size={28} />, title: "Estrategia de contenido", desc: "Auditamos tu presencia digital, definimos la narrativa de tu marca y creamos un calendario editorial mensual. Sabrás exactamente qué publicar, cuándo y por qué.", tag: "Planificación" },
+    { icon: <Video size={28} />, title: "Contenido para redes", desc: "Reels, TikToks, YouTube Shorts con Angela como presentadora. Unboxings, reviews, demos y contenido educativo, todo con narrativa pensada para conectar.", tag: "Producción" },
+    { icon: <Clapperboard size={28} />, title: "Producción audiovisual", desc: "Spots publicitarios, mini-documentales y brand films. Piezas de alto nivel con storytelling cinematográfico que cuentan la historia de tu marca.", tag: "Premium" },
+    { icon: <Upload size={28} />, title: "Gestión y publicación", desc: "Publicamos, optimizamos y medimos el rendimiento en todas las plataformas. Recibes un reporte mensual con resultados y claves para seguir creciendo.", tag: "Full service" },
+  ];
+  return (
+    <section id="servicios" style={{ padding: "120px 24px", background: "linear-gradient(180deg, #F5F3FF 0%, #FAFCFB 100%)" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <FadeIn>
+          <div style={{ textAlign: "center", marginBottom: 64 }}>
+            <span style={{ color: "#06B6D4", fontSize: 13, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", display: "block", marginBottom: 16 }}>Servicios</span>
+            <h2 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, color: "#0F172A", lineHeight: 1.1, margin: "0 0 20px", letterSpacing: "-1px" }}>
+              Todo lo que tu marca necesita.<br />
+              <span style={{ color: "#06B6D4" }}>Nada que tú tengas que gestionar.</span>
+            </h2>
+          </div>
+        </FadeIn>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 24 }}>
+          {services.map((s, i) => (
+            <FadeIn key={i} delay={i * 0.1}>
+              <div style={{
+                background: "#fff", borderRadius: 20, padding: 36, border: "1px solid #E8F0EC",
+                transition: "all 0.4s", cursor: "default", height: "100%",
+                display: "flex", flexDirection: "column",
+              }} onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-6px)"; e.currentTarget.style.boxShadow = "0 20px 60px rgba(27,67,50,0.08)"; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
+                  <div style={{ width: 52, height: 52, borderRadius: 14, background: "linear-gradient(135deg, #06B6D4, #6B3DED)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff" }}>
+                    {s.icon}
+                  </div>
+                  <span style={{ background: "rgba(82,183,136,0.1)", color: "#6B3DED", fontSize: 11, fontWeight: 700, padding: "4px 12px", borderRadius: 50, letterSpacing: "0.5px", textTransform: "uppercase" }}>{s.tag}</span>
+                </div>
+                <h3 style={{ fontSize: 20, fontWeight: 700, color: "#0F172A", marginBottom: 12 }}>{s.title}</h3>
+                <p style={{ color: "#6B7280", fontSize: 15, lineHeight: 1.7, margin: 0, flex: 1 }}>{s.desc}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Portfolio ───
+function PortfolioSection() {
+  const [active, setActive] = useState("todos");
+  const projects = [
+    { title: "Gildas", type: "redes", tag: "Reel de producto", color: "#6B3DED" },
+    { title: "Proyecto 2", type: "spot", tag: "Spot publicitario", color: "#0F172A" },
+    { title: "Proyecto 3", type: "redes", tag: "Serie TikTok", color: "#7C3AED" },
+    { title: "Proyecto 4", type: "doc", tag: "Mini documental", color: "#6B3DED" },
+    { title: "Proyecto 5", type: "redes", tag: "Unboxing", color: "#0F172A" },
+    { title: "Proyecto 6", type: "spot", tag: "Brand film", color: "#7C3AED" },
+  ];
+  const filtered = active === "todos" ? projects : projects.filter(p => p.type === active);
+  const filters = [
+    { key: "todos", label: "Todos" },
+    { key: "redes", label: "Redes sociales" },
+    { key: "spot", label: "Spots" },
+    { key: "doc", label: "Documentales" },
+  ];
+  return (
+    <section id="portfolio" style={{ padding: "120px 24px", background: "#fff" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <FadeIn>
+          <div style={{ textAlign: "center", marginBottom: 48 }}>
+            <span style={{ color: "#06B6D4", fontSize: 13, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", display: "block", marginBottom: 16 }}>Portfolio</span>
+            <h2 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, color: "#0F172A", lineHeight: 1.1, margin: "0 0 20px", letterSpacing: "-1px" }}>
+              Historias que hemos contado.
+            </h2>
+          </div>
+        </FadeIn>
+        <FadeIn delay={0.1}>
+          <div style={{ display: "flex", gap: 8, justifyContent: "center", marginBottom: 48, flexWrap: "wrap" }}>
+            {filters.map(f => (
+              <button key={f.key} onClick={() => setActive(f.key)} style={{
+                padding: "10px 24px", borderRadius: 50, fontSize: 14, fontWeight: 600, cursor: "pointer",
+                border: "none", transition: "all 0.3s",
+                background: active === f.key ? "linear-gradient(135deg, #6B3DED, #0F172A)" : "#F5F3FF",
+                color: active === f.key ? "#fff" : "#6B3DED",
+              }}>{f.label}</button>
+            ))}
+          </div>
+        </FadeIn>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 24 }}>
+          {filtered.map((p, i) => (
+            <FadeIn key={p.title + active} delay={i * 0.08}>
+              <div style={{
+                aspectRatio: "9/16", maxHeight: 440, borderRadius: 20, overflow: "hidden",
+                background: `linear-gradient(160deg, ${p.color}, #0D1B15)`,
+                position: "relative", cursor: "pointer", transition: "transform 0.4s",
+              }} onMouseEnter={e => e.currentTarget.style.transform = "scale(1.02)"}
+                onMouseLeave={e => e.currentTarget.style.transform = "none"}>
+                {/* Play button */}
+                <div style={{
+                  position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
+                }}>
+                  <div style={{
+                    width: 64, height: 64, borderRadius: "50%", background: "rgba(255,255,255,0.15)",
+                    backdropFilter: "blur(10px)", display: "flex", alignItems: "center", justifyContent: "center",
+                    border: "2px solid rgba(255,255,255,0.3)", transition: "all 0.3s",
+                  }}>
+                    <Play size={24} color="#fff" fill="#fff" />
+                  </div>
+                </div>
+                {/* Info */}
+                <div style={{
+                  position: "absolute", bottom: 0, left: 0, right: 0,
+                  background: "linear-gradient(transparent, rgba(0,0,0,0.7))",
+                  padding: "40px 24px 24px",
+                }}>
+                  <span style={{ background: "rgba(82,183,136,0.9)", color: "#fff", fontSize: 11, fontWeight: 700, padding: "4px 12px", borderRadius: 50, letterSpacing: "0.5px", textTransform: "uppercase" }}>{p.tag}</span>
+                  <h3 style={{ color: "#fff", fontSize: 22, fontWeight: 700, margin: "10px 0 0" }}>{p.title}</h3>
+                </div>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+        <FadeIn delay={0.3}>
+          <div style={{ textAlign: "center", marginTop: 48 }}>
+            <a href="#contacto" style={{
+              display: "inline-flex", alignItems: "center", gap: 8, color: "#6B3DED",
+              fontWeight: 700, fontSize: 16, textDecoration: "none", transition: "gap 0.3s",
+            }} onMouseEnter={e => e.currentTarget.style.gap = "12px"}
+              onMouseLeave={e => e.currentTarget.style.gap = "8px"}>
+              ¿Quieres que contemos la historia de tu marca? <ChevronRight size={18} />
+            </a>
+          </div>
+        </FadeIn>
+      </div>
+    </section>
+  );
+}
+
+// ─── Methodology ───
+function MethodSection() {
+  const steps = [
+    { n: "01", icon: <Eye size={28} />, title: "Contexto", desc: "Situamos al espectador en un mundo que reconoce. En los primeros 3 segundos, tiene que pensar: esto va conmigo.", color: "#06B6D4" },
+    { n: "02", icon: <Zap size={28} />, title: "Tensión", desc: "Introducimos el conflicto. ¿Qué pasa si no se resuelve? La tensión genera atención y mantiene enganchado.", color: "#7C3AED" },
+    { n: "03", icon: <Sparkles size={28} />, title: "Transformación", desc: "El producto entra como catalizador del cambio. El héroe es el cliente; tu producto es la herramienta.", color: "#6B3DED" },
+    { n: "04", icon: <Heart size={28} />, title: "Resonancia", desc: "El cierre no es un CTA frío. Es un momento que deja huella. El espectador tiene que sentir algo.", color: "#0F172A" },
+  ];
+  return (
+    <section id="metodo" style={{ padding: "120px 24px", background: "linear-gradient(160deg, #0D1B15, #0F172A, #6B3DED)", position: "relative", overflow: "hidden" }}>
+      <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(rgba(82,183,136,0.05) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+      <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative", zIndex: 2 }}>
+        <FadeIn>
+          <div style={{ textAlign: "center", marginBottom: 72 }}>
+            <span style={{ color: "#06B6D4", fontSize: 13, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", display: "block", marginBottom: 16 }}>Nuestra metodología</span>
+            <h2 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, color: "#fff", lineHeight: 1.1, margin: "0 0 20px", letterSpacing: "-1px" }}>
+              No improvisamos.<br />
+              <span style={{ color: "#06B6D4" }}>Tenemos un método.</span>
+            </h2>
+            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 18, maxWidth: 600, margin: "0 auto", lineHeight: 1.7 }}>
+              Cada pieza de contenido sigue nuestra metodología narrativa: <strong style={{ color: "#06B6D4" }}>El Arco Mochito</strong>.
+            </p>
+          </div>
+        </FadeIn>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 24 }}>
+          {steps.map((s, i) => (
+            <FadeIn key={i} delay={i * 0.15}>
+              <div style={{
+                background: "rgba(255,255,255,0.05)", border: "1px solid rgba(82,183,136,0.15)",
+                borderRadius: 20, padding: 36, transition: "all 0.4s", cursor: "default",
+                backdropFilter: "blur(10px)",
+              }} onMouseEnter={e => { e.currentTarget.style.background = "rgba(82,183,136,0.1)"; e.currentTarget.style.borderColor = "rgba(82,183,136,0.4)"; e.currentTarget.style.transform = "translateY(-6px)"; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.borderColor = "rgba(82,183,136,0.15)"; e.currentTarget.style.transform = "none"; }}>
+                <div style={{ fontSize: 48, fontWeight: 900, color: "rgba(82,183,136,0.2)", marginBottom: 8, lineHeight: 1 }}>{s.n}</div>
+                <div style={{ color: "#06B6D4", marginBottom: 16 }}>{s.icon}</div>
+                <h3 style={{ color: "#fff", fontSize: 22, fontWeight: 700, marginBottom: 12 }}>{s.title}</h3>
+                <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 15, lineHeight: 1.7, margin: 0 }}>{s.desc}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Contact ───
+function ContactSection() {
+  const [formData, setFormData] = useState({ name: "", email: "", company: "", message: "", source: "" });
+  const [sent, setSent] = useState(false);
+  const handleSubmit = (e) => { e.preventDefault(); setSent(true); };
+  const inputStyle = {
+    width: "100%", padding: "14px 18px", borderRadius: 12, border: "1px solid #E0E8E4",
+    fontSize: 15, fontFamily: "inherit", background: "#FAFCFB", outline: "none",
+    transition: "border-color 0.3s, box-shadow 0.3s", boxSizing: "border-box",
+  };
+  return (
+    <section id="contacto" style={{ padding: "120px 24px", background: "#FAFCFB" }}>
+      <div style={{ maxWidth: 900, margin: "0 auto" }}>
+        <FadeIn>
+          <div style={{ textAlign: "center", marginBottom: 56 }}>
+            <span style={{ color: "#06B6D4", fontSize: 13, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", display: "block", marginBottom: 16 }}>Contacto</span>
+            <h2 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, color: "#0F172A", lineHeight: 1.1, margin: "0 0 20px", letterSpacing: "-1px" }}>
+              Tu historia empieza aquí.
+            </h2>
+            <p style={{ color: "#6B7280", fontSize: 18, maxWidth: 550, margin: "0 auto", lineHeight: 1.7 }}>
+              Cuéntanos qué necesitas y te proponemos cómo contarlo. Sin compromiso, sin PowerPoints eternos.
+            </p>
+          </div>
+        </FadeIn>
+        <FadeIn delay={0.2}>
+          {sent ? (
+            <div style={{ textAlign: "center", padding: 60, background: "#fff", borderRadius: 24, border: "1px solid #E0E8E4" }}>
+              <div style={{ width: 64, height: 64, borderRadius: "50%", background: "linear-gradient(135deg, #06B6D4, #6B3DED)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
+                <Send size={28} color="#fff" />
+              </div>
+              <h3 style={{ fontSize: 24, fontWeight: 700, color: "#0F172A", marginBottom: 8 }}>Mensaje enviado</h3>
+              <p style={{ color: "#6B7280", fontSize: 16 }}>Te responderemos en menos de 24 horas.</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} style={{ background: "#fff", borderRadius: 24, padding: "48px 40px", border: "1px solid #E0E8E4", boxShadow: "0 8px 40px rgba(27,67,50,0.05)" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
+                <div>
+                  <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#0F172A", marginBottom: 6 }}>Nombre</label>
+                  <input style={inputStyle} placeholder="Tu nombre" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})}
+                    onFocus={e => { e.target.style.borderColor = "#06B6D4"; e.target.style.boxShadow = "0 0 0 3px rgba(82,183,136,0.1)"; }}
+                    onBlur={e => { e.target.style.borderColor = "#E0E8E4"; e.target.style.boxShadow = "none"; }} />
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#0F172A", marginBottom: 6 }}>Email</label>
+                  <input style={inputStyle} type="email" placeholder="tu@email.com" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})}
+                    onFocus={e => { e.target.style.borderColor = "#06B6D4"; e.target.style.boxShadow = "0 0 0 3px rgba(82,183,136,0.1)"; }}
+                    onBlur={e => { e.target.style.borderColor = "#E0E8E4"; e.target.style.boxShadow = "none"; }} />
+                </div>
+              </div>
+              <div style={{ marginBottom: 20 }}>
+                <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#0F172A", marginBottom: 6 }}>Empresa / Marca</label>
+                <input style={inputStyle} placeholder="Nombre de tu marca o empresa" value={formData.company} onChange={e => setFormData({...formData, company: e.target.value})}
+                  onFocus={e => { e.target.style.borderColor = "#06B6D4"; e.target.style.boxShadow = "0 0 0 3px rgba(82,183,136,0.1)"; }}
+                  onBlur={e => { e.target.style.borderColor = "#E0E8E4"; e.target.style.boxShadow = "none"; }} />
+              </div>
+              <div style={{ marginBottom: 20 }}>
+                <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#0F172A", marginBottom: 6 }}>¿Qué necesitas?</label>
+                <textarea style={{ ...inputStyle, minHeight: 120, resize: "vertical" }} placeholder="Cuéntanos sobre tu proyecto, qué buscas, qué te falta..." value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})}
+                  onFocus={e => { e.target.style.borderColor = "#06B6D4"; e.target.style.boxShadow = "0 0 0 3px rgba(82,183,136,0.1)"; }}
+                  onBlur={e => { e.target.style.borderColor = "#E0E8E4"; e.target.style.boxShadow = "none"; }} />
+              </div>
+              <div style={{ marginBottom: 32 }}>
+                <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#0F172A", marginBottom: 6 }}>¿Cómo nos has conocido?</label>
+                <select style={{ ...inputStyle, cursor: "pointer" }} value={formData.source} onChange={e => setFormData({...formData, source: e.target.value})}>
+                  <option value="">Selecciona una opción</option>
+                  <option value="redes">Redes sociales</option>
+                  <option value="recomendacion">Recomendación</option>
+                  <option value="google">Google</option>
+                  <option value="otro">Otro</option>
+                </select>
+              </div>
+              <button type="submit" style={{
+                width: "100%", padding: "16px", borderRadius: 14, border: "none", cursor: "pointer",
+                background: "linear-gradient(135deg, #06B6D4, #6B3DED)", color: "#fff",
+                fontSize: 16, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                boxShadow: "0 8px 30px rgba(82,183,136,0.3)", transition: "all 0.3s",
+              }} onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 40px rgba(82,183,136,0.4)"; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 8px 30px rgba(82,183,136,0.3)"; }}>
+                Enviar mensaje <Send size={18} />
+              </button>
+              <p style={{ textAlign: "center", color: "#6B7280", fontSize: 14, marginTop: 16 }}>
+                También puedes escribirnos a <strong style={{ color: "#6B3DED" }}>hola@mochitomedia.com</strong> o por <strong style={{ color: "#6B3DED" }}>WhatsApp</strong>.
+              </p>
+            </form>
+          )}
+        </FadeIn>
+      </div>
+    </section>
+  );
+}
+
+// ─── Footer ───
+function FooterSection() {
+  return (
+    <footer style={{ background: "#0D1B15", padding: "64px 24px 32px" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 40, marginBottom: 48 }}>
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+              <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg, #06B6D4, #6B3DED)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Sparkles size={16} color="#fff" />
+              </div>
+              <span style={{ color: "#fff", fontWeight: 800, fontSize: 18 }}>mochito</span>
+              <span style={{ color: "#06B6D4", fontWeight: 300, fontSize: 18 }}>media</span>
+            </div>
+            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14, maxWidth: 280, lineHeight: 1.6 }}>Tu historia merece ser contada. Nosotros sabemos cómo.</p>
+          </div>
+          <div style={{ display: "flex", gap: 48, flexWrap: "wrap" }}>
+            <div>
+              <h4 style={{ color: "rgba(255,255,255,0.6)", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 16 }}>Navegación</h4>
+              {["Nosotros", "Servicios", "Portfolio", "Método", "Contacto"].map(l => (
+                <a key={l} href={`#${l.toLowerCase()}`} style={{ display: "block", color: "rgba(255,255,255,0.4)", textDecoration: "none", fontSize: 14, marginBottom: 8, transition: "color 0.3s" }}
+                  onMouseEnter={e => e.target.style.color = "#06B6D4"} onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.4)"}>{l}</a>
+              ))}
+            </div>
+            <div>
+              <h4 style={{ color: "rgba(255,255,255,0.6)", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 16 }}>Contacto</h4>
+              <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14, marginBottom: 8 }}>hola@mochitomedia.com</p>
+              <div style={{ display: "flex", gap: 12, marginTop: 16 }}>
+                {[Instagram, Youtube, Linkedin, MessageCircle].map((Icon, i) => (
+                  <a key={i} href="#" style={{
+                    width: 40, height: 40, borderRadius: 10, background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center",
+                    color: "rgba(255,255,255,0.4)", transition: "all 0.3s", textDecoration: "none",
+                  }} onMouseEnter={e => { e.currentTarget.style.background = "rgba(82,183,136,0.2)"; e.currentTarget.style.borderColor = "#06B6D4"; e.currentTarget.style.color = "#06B6D4"; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "rgba(255,255,255,0.4)"; }}>
+                    <Icon size={18} />
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* Bottom */}
+        <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: 24, textAlign: "center" }}>
+          <p style={{ color: "rgba(255,255,255,0.25)", fontSize: 13, margin: 0 }}>© 2026 Mochito Media. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+// ─── CTA Banner before footer ───
+function CTABanner() {
+  return (
+    <section style={{ padding: "100px 24px", background: "#fff", textAlign: "center" }}>
+      <FadeIn>
+        <div style={{ maxWidth: 700, margin: "0 auto" }}>
+          <h2 style={{ fontSize: "clamp(28px, 5vw, 48px)", fontWeight: 800, color: "#0F172A", lineHeight: 1.15, margin: "0 0 20px", letterSpacing: "-1px" }}>
+            Tu marca tiene algo que contar.<br />
+            <span style={{ background: "linear-gradient(135deg, #06B6D4, #6B3DED)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              Déjanos ayudarte a que el mundo lo escuche.
+            </span>
+          </h2>
+          <a href="#contacto" style={{
+            display: "inline-flex", alignItems: "center", gap: 8, marginTop: 24,
+            background: "linear-gradient(135deg, #06B6D4, #7C3AED)", color: "#fff", padding: "18px 40px",
+            borderRadius: 50, fontSize: 17, fontWeight: 700, textDecoration: "none",
+            boxShadow: "0 8px 30px rgba(82,183,136,0.35)", transition: "all 0.3s",
+          }}>Empezar ahora <ChevronRight size={20} /></a>
+        </div>
+      </FadeIn>
+    </section>
+  );
+}
+
+// ─── Main App ───
+export default function MochitoMediaWeb() {
+  return (
+    <div style={{ fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", margin: 0, padding: 0, overflowX: "hidden", background: "#fff" }}>
+      <Navbar />
+      <Hero />
+      <ProblemSection />
+      <AboutSection />
+      <ServicesSection />
+      <PortfolioSection />
+      <MethodSection />
+      <ContactSection />
+      <CTABanner />
+      <FooterSection />
+    </div>
+  );
+}
