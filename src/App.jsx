@@ -459,7 +459,7 @@ function PortfolioSection() {
             </p>
           </div>
         </FadeIn>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 24 }}>
+        <div className="portfolio-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 24 }}>
           {projects.map((p, i) => (
             <FadeIn key={p.brand} delay={i * 0.08}>
               <a href={p.url} target="_blank" rel="noopener noreferrer" style={{
