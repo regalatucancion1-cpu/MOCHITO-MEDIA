@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Option B: Enso circle brush con play triangle (storytelling + video) -->
+  <circle cx="32" cy="32" r="26" stroke="#0B1220" stroke-width="4" stroke-linecap="round" fill="none" stroke-dasharray="150 20" transform="rotate(-35 32 32)"/>
+  <path d="M 27 23 L 43 32 L 27 41 Z" fill="#0B1220"/>
+</svg>
