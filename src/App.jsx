@@ -103,7 +103,7 @@ function Navbar() {
               onMouseEnter={e => e.target.style.color = "#E5B24C"} onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.8)"}>{l.label}</a>
           ))}
           <a href="#contacto" style={{
-            background: "linear-gradient(135deg, #D4603E, #7A8B5C)", color: "#fff", padding: "10px 24px",
+            background: "#D4603E", color: "#fff", padding: "10px 24px",
             borderRadius: 50, fontSize: 14, fontWeight: 600, textDecoration: "none", transition: "transform 0.3s, box-shadow 0.3s",
             boxShadow: "0 4px 15px rgba(212,96,62,0.3)",
           }} onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.boxShadow = "0 6px 25px rgba(212,96,62,0.5)"; }}
@@ -137,7 +137,7 @@ function Hero() {
   return (
     <section id="hero" style={{
       minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center",
-      background: "linear-gradient(160deg, #2A1E18 0%, #2A1E18 40%, #E5B24C 100%)",
+      background: "#2A1E18",
       position: "relative", overflow: "hidden",
     }}>
       {/* Animated bg orbs */}
@@ -157,21 +157,21 @@ function Hero() {
           <h1 style={{ fontSize: "clamp(40px, 7vw, 80px)", fontWeight: 800, color: "#fff", lineHeight: 1.05, margin: "0 0 24px", letterSpacing: "-2px" }}>
             Tu marca tiene una<br />
             <span style={{ position: "relative", display: "inline-block" }}>
-              <span style={{ background: "linear-gradient(135deg, #E5B24C, #F5EEDC)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{words[textIdx]}</span>
+              <span style={{ color: "#E5B24C" }}>{words[textIdx]}</span>
               <span style={{ position: "absolute", bottom: -4, left: 0, right: 0, height: 4, background: "linear-gradient(90deg, #E5B24C, transparent)", borderRadius: 2 }} />
             </span>
             <br />que merece ser contada.
           </h1>
         </FadeIn>
         <FadeIn delay={0.5}>
-          <p style={{ fontSize: "clamp(16px, 2.5vw, 21px)", color: "rgba(255,255,255,0.7)", maxWidth: 680, margin: "0 auto 40px", lineHeight: 1.7, fontWeight: 300 }}>
+          <p style={{ fontSize: "clamp(16px, 2.5vw, 21px)", color: "#F5EEDC", maxWidth: 680, margin: "0 auto 40px", lineHeight: 1.7, fontWeight: 400 }}>
             Somos una agencia de creadores UGC y creación de contenido para marcas. Producimos vídeos con storytelling para TikTok, Instagram y Reels que conectan de verdad con tu audiencia y generan ventas.
           </p>
         </FadeIn>
         <FadeIn delay={0.7}>
           <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
             <a href="#contacto" style={{
-              background: "linear-gradient(135deg, #D4603E, #7A8B5C)", color: "#fff", padding: "16px 36px",
+              background: "#D4603E", color: "#fff", padding: "16px 36px",
               borderRadius: 50, fontSize: 16, fontWeight: 700, textDecoration: "none",
               boxShadow: "0 8px 30px rgba(212,96,62,0.4)", transition: "all 0.3s",
               display: "flex", alignItems: "center", gap: 8,
@@ -231,9 +231,9 @@ function ProblemSection() {
                 transition: "all 0.4s", cursor: "default", position: "relative", overflow: "hidden",
               }} onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-8px)"; e.currentTarget.style.boxShadow = "0 20px 60px rgba(42,30,24,0.1)"; e.currentTarget.style.borderColor = "#D4603E"; }}
                 onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.borderColor = "#E8DCC4"; }}>
-                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "linear-gradient(90deg, #D4603E, #E5B24C)", opacity: 0, transition: "opacity 0.4s" }}
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "#D4603E", opacity: 0, transition: "opacity 0.4s" }}
                   className="card-bar" />
-                <div style={{ width: 56, height: 56, borderRadius: 16, background: "linear-gradient(135deg, rgba(212,96,62,0.1), rgba(42,30,24,0.08))", display: "flex", alignItems: "center", justifyContent: "center", color: "#E5B24C", marginBottom: 24 }}>
+                <div style={{ width: 56, height: 56, borderRadius: 16, background: "rgba(212,96,62,0.12)", display: "flex", alignItems: "center", justifyContent: "center", color: "#D4603E", marginBottom: 24 }}>
                   {p.icon}
                 </div>
                 <h3 style={{ fontSize: 22, fontWeight: 700, color: "#2A1E18", marginBottom: 12 }}>{p.title}</h3>
@@ -288,7 +288,7 @@ function AboutSection() {
               </div>
               <div style={{ padding: "28px 32px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
-                  <div style={{ width: 40, height: 40, borderRadius: 10, background: "linear-gradient(135deg, #D4603E, #E5B24C)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 10, background: "#D4603E", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <Video size={18} color="#fff" />
                   </div>
                   <div>
@@ -323,7 +323,7 @@ function AboutSection() {
               </div>
               <div style={{ padding: "28px 32px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
-                  <div style={{ width: 40, height: 40, borderRadius: 10, background: "linear-gradient(135deg, #E5B24C, #2A1E18)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 10, background: "#7A8B5C", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <Clapperboard size={18} color="#fff" />
                   </div>
                   <div>
@@ -377,7 +377,7 @@ function ServicesSection() {
     { icon: <Upload size={28} />, title: "Gestión y publicación en redes", desc: "Publicamos, optimizamos y medimos el rendimiento en TikTok, Instagram, YouTube y LinkedIn. Cada mes recibes un reporte claro con métricas y claves para seguir creciendo.", tag: "Full service" },
   ];
   return (
-    <section id="servicios" style={{ padding: "120px 24px", background: "linear-gradient(180deg, #FAF4E4 0%, #F5EEDC 100%)" }}>
+    <section id="servicios" style={{ padding: "120px 24px", background: "#F5EEDC" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <FadeIn>
           <div style={{ textAlign: "center", marginBottom: 64 }}>
@@ -401,7 +401,7 @@ function ServicesSection() {
               }} onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-6px)"; e.currentTarget.style.boxShadow = "0 20px 60px rgba(42,30,24,0.08)"; }}
                 onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
-                  <div style={{ width: 52, height: 52, borderRadius: 14, background: "linear-gradient(135deg, #D4603E, #E5B24C)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff" }}>
+                  <div style={{ width: 52, height: 52, borderRadius: 14, background: "#D4603E", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff" }}>
                     {s.icon}
                   </div>
                   <span style={{ background: "rgba(212,96,62,0.1)", color: "#E5B24C", fontSize: 11, fontWeight: 700, padding: "4px 12px", borderRadius: 50, letterSpacing: "0.5px", textTransform: "uppercase" }}>{s.tag}</span>
@@ -555,7 +555,7 @@ function MethodSection() {
     { n: "04", icon: <Heart size={28} />, title: "Resonancia", desc: "El cierre no es un CTA frío. Es un momento que deja huella. El espectador tiene que sentir algo.", color: "#F5EEDC" },
   ];
   return (
-    <section id="metodo" style={{ padding: "120px 24px", background: "linear-gradient(160deg, #2A1E18, #2A1E18, #E5B24C)", position: "relative", overflow: "hidden" }}>
+    <section id="metodo" style={{ padding: "120px 24px", background: "#2A1E18", position: "relative", overflow: "hidden" }}>
       <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(rgba(212,96,62,0.05) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
       <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative", zIndex: 2 }}>
         <FadeIn>
@@ -565,7 +565,7 @@ function MethodSection() {
               No improvisamos.<br />
               <span style={{ color: "#E5B24C" }}>Tenemos un método.</span>
             </h2>
-            <p style={{ color: "rgba(255,255,255,0.75)", fontSize: 18, maxWidth: 600, margin: "0 auto", lineHeight: 1.7 }}>
+            <p style={{ color: "#F5EEDC", fontSize: 18, maxWidth: 600, margin: "0 auto", lineHeight: 1.7 }}>
               Cada pieza de contenido sigue nuestra metodología narrativa: <strong style={{ color: "#E5B24C" }}>El Arco Mochito</strong>.
             </p>
           </div>
@@ -582,7 +582,7 @@ function MethodSection() {
                 <div style={{ fontSize: 48, fontWeight: 900, color: "rgba(212,96,62,0.2)", marginBottom: 8, lineHeight: 1 }}>{s.n}</div>
                 <div style={{ color: "#E5B24C", marginBottom: 16 }}>{s.icon}</div>
                 <h3 style={{ color: "#fff", fontSize: 22, fontWeight: 700, marginBottom: 12 }}>{s.title}</h3>
-                <p style={{ color: "rgba(255,255,255,0.78)", fontSize: 15, lineHeight: 1.7, margin: 0 }}>{s.desc}</p>
+                <p style={{ color: "#F5EEDC", fontSize: 15, lineHeight: 1.7, margin: 0 }}>{s.desc}</p>
               </div>
             </FadeIn>
           ))}
@@ -647,7 +647,7 @@ function ContactSection() {
         <FadeIn delay={0.2}>
           {sent ? (
             <div style={{ textAlign: "center", padding: 60, background: "#fff", borderRadius: 24, border: "1px solid #E8DCC4" }}>
-              <div style={{ width: 64, height: 64, borderRadius: "50%", background: "linear-gradient(135deg, #D4603E, #E5B24C)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
+              <div style={{ width: 64, height: 64, borderRadius: "50%", background: "#D4603E", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
                 <Send size={28} color="#fff" />
               </div>
               <h3 style={{ fontSize: 24, fontWeight: 700, color: "#2A1E18", marginBottom: 8 }}>Mensaje enviado</h3>
@@ -693,7 +693,7 @@ function ContactSection() {
               </div>
               <button type="submit" disabled={sending} style={{
                 width: "100%", padding: "16px", borderRadius: 14, border: "none", cursor: sending ? "not-allowed" : "pointer",
-                background: "linear-gradient(135deg, #D4603E, #E5B24C)", color: "#fff",
+                background: "#D4603E", color: "#fff",
                 fontSize: 16, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                 boxShadow: "0 8px 30px rgba(212,96,62,0.3)", transition: "all 0.3s",
                 opacity: sending ? 0.7 : 1,
@@ -727,7 +727,7 @@ function FooterSection() {
               <span style={{ color: "#fff", fontWeight: 800, fontSize: 18 }}>mochito</span>
               <span style={{ color: "#E5B24C", fontWeight: 300, fontSize: 18 }}>media</span>
             </div>
-            <p style={{ color: "rgba(255,255,255,0.65)", fontSize: 14, maxWidth: 280, lineHeight: 1.6 }}>Agencia de creadores UGC y creación de contenido con storytelling para marcas modernas.</p>
+            <p style={{ color: "#F5EEDC", fontSize: 14, maxWidth: 280, lineHeight: 1.6 }}>Agencia de creadores UGC y creación de contenido con storytelling para marcas modernas.</p>
           </div>
           <div style={{ display: "flex", gap: 48, flexWrap: "wrap" }}>
             <div>
@@ -740,21 +740,21 @@ function FooterSection() {
                 { label: "Blog", href: "/blog" },
                 { label: "Contacto", href: "/#contacto" },
               ].map(l => (
-                <a key={l.label} href={l.href} style={{ display: "block", color: "rgba(255,255,255,0.7)", textDecoration: "none", fontSize: 14, marginBottom: 8, transition: "color 0.3s" }}
-                  onMouseEnter={e => e.target.style.color = "#E5B24C"} onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.7)"}>{l.label}</a>
+                <a key={l.label} href={l.href} style={{ display: "block", color: "#F5EEDC", textDecoration: "none", fontSize: 14, marginBottom: 8, transition: "color 0.3s" }}
+                  onMouseEnter={e => e.target.style.color = "#E5B24C"} onMouseLeave={e => e.target.style.color = "#F5EEDC"}>{l.label}</a>
               ))}
             </div>
             <div>
               <h4 style={{ color: "#E5B24C", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 16 }}>Contacto</h4>
-              <p style={{ color: "rgba(255,255,255,0.7)", fontSize: 14, marginBottom: 8 }}>mochitomedia@gmail.com</p>
+              <p style={{ color: "#F5EEDC", fontSize: 14, marginBottom: 8 }}>mochitomedia@gmail.com</p>
               <div style={{ display: "flex", gap: 12, marginTop: 16 }}>
                 {[Instagram, Youtube, Linkedin, MessageCircle].map((Icon, i) => (
                   <a key={i} href="#" style={{
                     width: 40, height: 40, borderRadius: 10, background: "rgba(255,255,255,0.05)",
                     border: "1px solid rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center",
-                    color: "rgba(255,255,255,0.7)", transition: "all 0.3s", textDecoration: "none",
-                  }} onMouseEnter={e => { e.currentTarget.style.background = "rgba(229,178,76,0.18)"; e.currentTarget.style.borderColor = "#E5B24C"; e.currentTarget.style.color = "#E5B24C"; }}
-                    onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "rgba(255,255,255,0.7)"; }}>
+                    color: "#F5EEDC", transition: "all 0.3s", textDecoration: "none",
+                  }} onMouseEnter={e => { e.currentTarget.style.background = "rgba(229,178,76,0.2)"; e.currentTarget.style.borderColor = "#E5B24C"; e.currentTarget.style.color = "#E5B24C"; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.08)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)"; e.currentTarget.style.color = "#F5EEDC"; }}>
                     <Icon size={18} />
                   </a>
                 ))}
@@ -764,7 +764,7 @@ function FooterSection() {
         </div>
         {/* Bottom */}
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: 24, textAlign: "center" }}>
-          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 13, margin: 0 }}>© 2026 Mochito Media. Todos los derechos reservados.</p>
+          <p style={{ color: "rgba(245,238,220,0.7)", fontSize: 13, margin: 0 }}>© 2026 Mochito Media. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>
@@ -779,13 +779,13 @@ function CTABanner() {
         <div style={{ maxWidth: 700, margin: "0 auto" }}>
           <h2 style={{ fontSize: "clamp(28px, 5vw, 48px)", fontWeight: 800, color: "#2A1E18", lineHeight: 1.15, margin: "0 0 20px", letterSpacing: "-1px" }}>
             Tu marca tiene algo que contar.<br />
-            <span style={{ background: "linear-gradient(135deg, #D4603E, #E5B24C)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+            <span style={{ color: "#D4603E" }}>
               Déjanos ayudarte a que el mundo lo escuche.
             </span>
           </h2>
           <a href="#contacto" style={{
             display: "inline-flex", alignItems: "center", gap: 8, marginTop: 24,
-            background: "linear-gradient(135deg, #D4603E, #7A8B5C)", color: "#fff", padding: "18px 40px",
+            background: "#D4603E", color: "#fff", padding: "18px 40px",
             borderRadius: 50, fontSize: 17, fontWeight: 700, textDecoration: "none",
             boxShadow: "0 8px 30px rgba(212,96,62,0.35)", transition: "all 0.3s",
           }}>Empezar ahora <ChevronRight size={20} /></a>
