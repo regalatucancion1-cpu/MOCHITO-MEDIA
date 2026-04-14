@@ -91,16 +91,18 @@ function Navbar() {
       borderBottom: scrolled ? "1px solid rgba(212,96,62,0.2)" : "none",
     }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <a href="#hero" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 10, color: "#fff" }}>
-          <Logo size={36} />
-          <span style={{ color: "#fff", fontWeight: 800, fontSize: 20, letterSpacing: "-0.5px" }}>mochito</span>
-          <span style={{ color: "#E5B24C", fontWeight: 300, fontSize: 20 }}>media</span>
+        <a href="#hero" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 8, color: "#fff" }}>
+          <Logo size={32} />
+          <span style={{ display: "flex", alignItems: "baseline", fontSize: 21, letterSpacing: "-1.2px", lineHeight: 1 }}>
+            <span style={{ color: "#fff", fontWeight: 800 }}>mochito</span>
+            <span style={{ color: "#F5B83E", fontWeight: 500 }}>media</span>
+          </span>
         </a>
         {/* Desktop */}
         <div style={{ display: "flex", alignItems: "center", gap: 32 }} className="hidden-mobile">
           {links.map(l => (
             <a key={l.href} href={l.href} style={{ color: "rgba(255,255,255,0.8)", textDecoration: "none", fontSize: 14, fontWeight: 500, letterSpacing: "0.5px", transition: "color 0.3s" }}
-              onMouseEnter={e => e.target.style.color = "#E5B24C"} onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.8)"}>{l.label}</a>
+              onMouseEnter={e => e.target.style.color = "#F5B83E"} onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.8)"}>{l.label}</a>
           ))}
           <a href="#contacto" style={{
             background: "#D4603E", color: "#fff", padding: "10px 24px",
@@ -148,17 +150,17 @@ function Hero() {
 
       <div style={{ position: "relative", zIndex: 2, textAlign: "center", maxWidth: 900, padding: "0 24px" }}>
         <FadeIn delay={0.1}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(229,178,76,0.15)", border: "1px solid rgba(229,178,76,0.35)", borderRadius: 50, padding: "8px 20px", marginBottom: 32 }}>
-            <Sparkles size={14} color="#E5B24C" />
-            <span style={{ color: "#E5B24C", fontSize: 13, fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase" }}>Creadores UGC, storytelling real</span>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(245,184,62,0.15)", border: "1px solid rgba(245,184,62,0.35)", borderRadius: 50, padding: "8px 20px", marginBottom: 32 }}>
+            <Sparkles size={14} color="#F5B83E" />
+            <span style={{ color: "#F5B83E", fontSize: 13, fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase" }}>Creadores UGC, storytelling real</span>
           </div>
         </FadeIn>
         <FadeIn delay={0.3}>
           <h1 style={{ fontSize: "clamp(40px, 7vw, 80px)", fontWeight: 800, color: "#fff", lineHeight: 1.05, margin: "0 0 24px", letterSpacing: "-2px" }}>
             Tu marca tiene una<br />
             <span style={{ position: "relative", display: "inline-block" }}>
-              <span style={{ color: "#E5B24C" }}>{words[textIdx]}</span>
-              <span style={{ position: "absolute", bottom: -4, left: 0, right: 0, height: 4, background: "linear-gradient(90deg, #E5B24C, transparent)", borderRadius: 2 }} />
+              <span style={{ color: "#F5B83E" }}>{words[textIdx]}</span>
+              <span style={{ position: "absolute", bottom: -4, left: 0, right: 0, height: 4, background: "linear-gradient(90deg, #F5B83E, transparent)", borderRadius: 2 }} />
             </span>
             <br />que merece ser contada.
           </h1>
@@ -356,7 +358,7 @@ function AboutSection() {
                 { n: 80, s: "%", l: "más recuerdo de marca" },
               ].map((s, i) => (
                 <div key={i} style={{ textAlign: "center" }}>
-                  <div style={{ fontSize: 32, fontWeight: 800, color: "#E5B24C" }}><Counter end={s.n} />{s.s}</div>
+                  <div style={{ fontSize: 32, fontWeight: 800, color: "#D4603E" }}><Counter end={s.n} />{s.s}</div>
                   <div style={{ fontSize: 12, color: "#6B7280", maxWidth: 100, lineHeight: 1.4, marginTop: 4 }}>{s.l}</div>
                 </div>
               ))}
@@ -404,7 +406,7 @@ function ServicesSection() {
                   <div style={{ width: 52, height: 52, borderRadius: 14, background: "#D4603E", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff" }}>
                     {s.icon}
                   </div>
-                  <span style={{ background: "rgba(212,96,62,0.1)", color: "#E5B24C", fontSize: 11, fontWeight: 700, padding: "4px 12px", borderRadius: 50, letterSpacing: "0.5px", textTransform: "uppercase" }}>{s.tag}</span>
+                  <span style={{ background: "rgba(212,96,62,0.12)", color: "#D4603E", fontSize: 11, fontWeight: 700, padding: "4px 12px", borderRadius: 50, letterSpacing: "0.5px", textTransform: "uppercase" }}>{s.tag}</span>
                 </div>
                 <h3 style={{ fontSize: 20, fontWeight: 700, color: "#2A1E18", marginBottom: 12 }}>{s.title}</h3>
                 <p style={{ color: "#6B7280", fontSize: 15, lineHeight: 1.7, margin: 0, flex: 1 }}>{s.desc}</p>
@@ -533,7 +535,7 @@ function PortfolioSection() {
         <FadeIn delay={0.3}>
           <div style={{ textAlign: "center", marginTop: 48 }}>
             <a href="#contacto" style={{
-              display: "inline-flex", alignItems: "center", gap: 8, color: "#E5B24C",
+              display: "inline-flex", alignItems: "center", gap: 8, color: "#D4603E",
               fontWeight: 700, fontSize: 16, textDecoration: "none", transition: "gap 0.3s",
             }} onMouseEnter={e => e.currentTarget.style.gap = "12px"}
               onMouseLeave={e => e.currentTarget.style.gap = "8px"}>
@@ -551,7 +553,7 @@ function MethodSection() {
   const steps = [
     { n: "01", icon: <Eye size={28} />, title: "Contexto", desc: "Situamos al espectador en un mundo que reconoce. En los primeros 3 segundos, tiene que pensar: esto va conmigo.", color: "#D4603E" },
     { n: "02", icon: <Zap size={28} />, title: "Tensión", desc: "Introducimos el conflicto. ¿Qué pasa si no se resuelve? La tensión genera atención y mantiene enganchado.", color: "#7A8B5C" },
-    { n: "03", icon: <Sparkles size={28} />, title: "Transformación", desc: "El producto entra como catalizador del cambio. El héroe es el cliente; tu producto es la herramienta.", color: "#E5B24C" },
+    { n: "03", icon: <Sparkles size={28} />, title: "Transformación", desc: "El producto entra como catalizador del cambio. El héroe es el cliente; tu producto es la herramienta.", color: "#F5B83E" },
     { n: "04", icon: <Heart size={28} />, title: "Resonancia", desc: "El cierre no es un CTA frío. Es un momento que deja huella. El espectador tiene que sentir algo.", color: "#F5EEDC" },
   ];
   return (
@@ -560,13 +562,13 @@ function MethodSection() {
       <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative", zIndex: 2 }}>
         <FadeIn>
           <div style={{ textAlign: "center", marginBottom: 72 }}>
-            <span style={{ color: "#E5B24C", fontSize: 13, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", display: "block", marginBottom: 16 }}>Nuestra metodología</span>
+            <span style={{ color: "#F5B83E", fontSize: 13, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", display: "block", marginBottom: 16 }}>Nuestra metodología</span>
             <h2 style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, color: "#fff", lineHeight: 1.1, margin: "0 0 20px", letterSpacing: "-1px" }}>
               No improvisamos.<br />
-              <span style={{ color: "#E5B24C" }}>Tenemos un método.</span>
+              <span style={{ color: "#F5B83E" }}>Tenemos un método.</span>
             </h2>
             <p style={{ color: "#F5EEDC", fontSize: 18, maxWidth: 600, margin: "0 auto", lineHeight: 1.7 }}>
-              Cada pieza de contenido sigue nuestra metodología narrativa: <strong style={{ color: "#E5B24C" }}>El Arco Mochito</strong>.
+              Cada pieza de contenido sigue nuestra metodología narrativa: <strong style={{ color: "#F5B83E" }}>El Arco Mochito</strong>.
             </p>
           </div>
         </FadeIn>
@@ -579,8 +581,8 @@ function MethodSection() {
                 backdropFilter: "blur(10px)",
               }} onMouseEnter={e => { e.currentTarget.style.background = "rgba(212,96,62,0.1)"; e.currentTarget.style.borderColor = "rgba(212,96,62,0.4)"; e.currentTarget.style.transform = "translateY(-6px)"; }}
                 onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.borderColor = "rgba(212,96,62,0.15)"; e.currentTarget.style.transform = "none"; }}>
-                <div style={{ fontSize: 48, fontWeight: 900, color: "rgba(212,96,62,0.2)", marginBottom: 8, lineHeight: 1 }}>{s.n}</div>
-                <div style={{ color: "#E5B24C", marginBottom: 16 }}>{s.icon}</div>
+                <div style={{ fontSize: 56, fontWeight: 900, color: "#F5B83E", marginBottom: 8, lineHeight: 1, letterSpacing: "-2px" }}>{s.n}</div>
+                <div style={{ color: "#F5B83E", marginBottom: 16 }}>{s.icon}</div>
                 <h3 style={{ color: "#fff", fontSize: 22, fontWeight: 700, marginBottom: 12 }}>{s.title}</h3>
                 <p style={{ color: "#F5EEDC", fontSize: 15, lineHeight: 1.7, margin: 0 }}>{s.desc}</p>
               </div>
@@ -705,7 +707,7 @@ function ContactSection() {
                 <p style={{ textAlign: "center", color: "#C8493E", fontSize: 14, marginTop: 12 }}>{error}</p>
               )}
               <p style={{ textAlign: "center", color: "#6B7280", fontSize: 14, marginTop: 16 }}>
-                También puedes escribirnos a <strong style={{ color: "#E5B24C" }}>mochitomedia@gmail.com</strong>.
+                También puedes escribirnos a <strong style={{ color: "#D4603E" }}>mochitomedia@gmail.com</strong>.
               </p>
             </form>
           )}
@@ -722,16 +724,18 @@ function FooterSection() {
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 40, marginBottom: 48 }}>
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, color: "#fff" }}>
-              <Logo size={32} />
-              <span style={{ color: "#fff", fontWeight: 800, fontSize: 18 }}>mochito</span>
-              <span style={{ color: "#E5B24C", fontWeight: 300, fontSize: 18 }}>media</span>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12, color: "#fff" }}>
+              <Logo size={28} />
+              <span style={{ display: "flex", alignItems: "baseline", fontSize: 19, letterSpacing: "-1.1px", lineHeight: 1 }}>
+                <span style={{ color: "#fff", fontWeight: 800 }}>mochito</span>
+                <span style={{ color: "#F5B83E", fontWeight: 500 }}>media</span>
+              </span>
             </div>
             <p style={{ color: "#F5EEDC", fontSize: 14, maxWidth: 280, lineHeight: 1.6 }}>Agencia de creadores UGC y creación de contenido con storytelling para marcas modernas.</p>
           </div>
           <div style={{ display: "flex", gap: 48, flexWrap: "wrap" }}>
             <div>
-              <h4 style={{ color: "#E5B24C", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 16 }}>Navegación</h4>
+              <h4 style={{ color: "#F5B83E", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 16 }}>Navegación</h4>
               {[
                 { label: "Nosotros", href: "/#nosotros" },
                 { label: "Servicios", href: "/#servicios" },
@@ -741,11 +745,11 @@ function FooterSection() {
                 { label: "Contacto", href: "/#contacto" },
               ].map(l => (
                 <a key={l.label} href={l.href} style={{ display: "block", color: "#F5EEDC", textDecoration: "none", fontSize: 14, marginBottom: 8, transition: "color 0.3s" }}
-                  onMouseEnter={e => e.target.style.color = "#E5B24C"} onMouseLeave={e => e.target.style.color = "#F5EEDC"}>{l.label}</a>
+                  onMouseEnter={e => e.target.style.color = "#F5B83E"} onMouseLeave={e => e.target.style.color = "#F5EEDC"}>{l.label}</a>
               ))}
             </div>
             <div>
-              <h4 style={{ color: "#E5B24C", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 16 }}>Contacto</h4>
+              <h4 style={{ color: "#F5B83E", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 16 }}>Contacto</h4>
               <p style={{ color: "#F5EEDC", fontSize: 14, marginBottom: 8 }}>mochitomedia@gmail.com</p>
               <div style={{ display: "flex", gap: 12, marginTop: 16 }}>
                 {[Instagram, Youtube, Linkedin, MessageCircle].map((Icon, i) => (
@@ -753,7 +757,7 @@ function FooterSection() {
                     width: 40, height: 40, borderRadius: 10, background: "rgba(255,255,255,0.05)",
                     border: "1px solid rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center",
                     color: "#F5EEDC", transition: "all 0.3s", textDecoration: "none",
-                  }} onMouseEnter={e => { e.currentTarget.style.background = "rgba(229,178,76,0.2)"; e.currentTarget.style.borderColor = "#E5B24C"; e.currentTarget.style.color = "#E5B24C"; }}
+                  }} onMouseEnter={e => { e.currentTarget.style.background = "rgba(245,184,62,0.2)"; e.currentTarget.style.borderColor = "#F5B83E"; e.currentTarget.style.color = "#F5B83E"; }}
                     onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.08)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)"; e.currentTarget.style.color = "#F5EEDC"; }}>
                     <Icon size={18} />
                   </a>
