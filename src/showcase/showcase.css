@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@400;500;700;900&family=Archivo+Narrow:wght@500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&family=League+Spartan:wght@500;700;800;900&family=Space+Mono:wght@400;700&family=Unbounded:wght@400;600;800;900&display=swap');
+
+/* ---- Showcase page hero ---- */
+.showcase-page-hero{
+  position:relative; overflow:hidden;
+  padding:120px 24px 80px;
+  background:linear-gradient(160deg, #1a110d 0%, #2A1E18 55%, #3a2418 100%);
+  color:#F5EEDC;
+}
+.showcase-back{
+  display:inline-flex; align-items:center; gap:8px;
+  color:rgba(255,255,255,.7); text-decoration:none;
+  font-size:14px; margin-bottom:32px;
+  transition:color .2s;
+}
+.showcase-back:hover{ color:#fff; }
+.showcase-page-title{
+  font-family:'Inter', sans-serif;
+  font-size:clamp(44px, 8vw, 108px); font-weight:900; line-height:.98;
+  margin:0 0 28px; letter-spacing:-2.5px; color:#fff;
+  max-width:900px;
+  word-wrap:break-word; overflow-wrap:break-word;
+}
+.showcase-page-title em{ color:#F5B83E; font-style:normal; }
+.showcase-page-lede{
+  font-size:19px; line-height:1.7; font-weight:400;
+  color:rgba(245,238,220,.75); max-width:680px; margin:0;
+  overflow-wrap:break-word;
+}
+
+/* ---- Showcase section (legacy, kept for embed use if needed) ---- */
+.showcase-section{
+  padding:80px 24px 120px;
+  background:#2A1E18;
+  color:#F5EEDC;
+  position:relative;
+  overflow:hidden;
+}
+.showcase-section--page{ padding-top:40px; padding-bottom:40px; }
+.showcase-section--fictional{
+  background:linear-gradient(180deg, #2A1E18 0%, #23180F 100%);
+  border-top:1px solid rgba(245,238,220,.08);
+}
+
+.showcase-section-header{
+  padding:56px 0 32px;
+  border-bottom:1px solid rgba(245,238,220,.14);
+  margin-bottom:24px;
+}
+.showcase-section-tag{
+  display:inline-block;
+  font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:600;
+  letter-spacing:.32em; text-transform:uppercase;
+  color:#F5B83E; margin-bottom:18px;
+  padding:6px 12px; border:1px solid rgba(245,184,62,.35); border-radius:50px;
+}
+.showcase-section-title{
+  font-family:'Inter', sans-serif; font-weight:800;
+  font-size:clamp(32px, 5vw, 52px); line-height:1.05; letter-spacing:-1px;
+  color:#fff; margin:0 0 14px;
+}
+.showcase-section-sub{
+  font-family:'Inter', sans-serif; font-size:16px; line-height:1.6;
+  color:rgba(245,238,220,.7); max-width:580px; margin:0;
+}
+.showcase-section .showcase-bg-grid{
+  position:absolute; inset:0;
+  background-image:radial-gradient(rgba(245,184,62,.05) 1px, transparent 1px);
+  background-size:32px 32px;
+  pointer-events:none;
+}
+.showcase-wrap{ max-width:1200px; margin:0 auto; position:relative; z-index:1; }
+.showcase-header{ text-align:center; margin-bottom:72px; }
+.showcase-eyebrow{
+  color:#F5B83E; font-size:13px; font-weight:700; letter-spacing:2px;
+  text-transform:uppercase; display:block; margin-bottom:16px;
+}
+.showcase-title{
+  font-family:'Inter', sans-serif;
+  font-size:clamp(32px, 5vw, 52px); font-weight:800; line-height:1.1;
+  margin:0 0 20px; letter-spacing:-1px; color:#fff;
+}
+.showcase-title em{ color:#F5B83E; font-style:normal; }
+.showcase-lede{
+  color:rgba(245,238,220,.72); font-size:16px; line-height:1.7;
+  max-width:640px; margin:0 auto;
+}
+
+/* ---- Brand chapter ---- */
+.brand-chapter{
+  display:grid; grid-template-columns:280px 1fr; gap:56px;
+  padding:72px 0; align-items:start;
+  border-top:1px solid rgba(245,238,220,.08);
+}
+.brand-chapter:first-of-type{ border-top:none; }
+
+/* Uniform meta typography across all brands */
+.brand-chapter-kicker{
+  font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:500;
+  letter-spacing:.28em; text-transform:uppercase;
+  color:#F5B83E; margin-bottom:18px;
+}
+.brand-chapter-name{
+  font-family:'Inter', sans-serif; font-weight:800;
+  font-size:32px; line-height:1.05; letter-spacing:-0.5px;
+  text-transform:uppercase;
+  color:#F5EEDC; margin:0 0 18px;
+}
+.brand-chapter-tagline{
+  font-family:'Inter', sans-serif; font-size:16px; line-height:1.55; font-weight:400;
+  color:rgba(245,238,220,.7); margin:0; max-width:260px;
+}
+
+.brand-pieces{
+  display:flex; gap:20px; justify-content:flex-start; align-items:flex-start;
+}
+.brand-pieces--grid{
+  display:grid;
+  grid-template-columns:repeat(2, max-content);
+  grid-auto-rows:auto;
+  gap:20px;
+  justify-content:flex-start;
+  align-items:start;
+}
+
+/* ---- Piece thumb (outer container with rounded corners) ---- */
+.piece-thumb{
+  position:relative;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 18px 40px rgba(0,0,0,.35), 0 0 0 1px rgba(245,238,220,.06);
+  flex-shrink:0;
+}
+.piece-slot{
+  position:absolute; top:0; left:0;
+  transform-origin:top left;
+}
+.piece-badge{
+  position:absolute; top:10px; right:10px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:10px; letter-spacing:.16em; text-transform:uppercase;
+  padding:5px 9px; border-radius:50px;
+  background:rgba(0,0,0,.55); color:#fff;
+  backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.18);
+  z-index:3;
+  font-weight:600;
+}
+
+/* ---- CTA ---- */
+.showcase-cta{
+  margin-top:56px; padding:32px; text-align:center;
+  border-radius:24px;
+  background:linear-gradient(135deg, rgba(245,184,62,.08), rgba(212,96,62,.08));
+  border:1px solid rgba(245,238,220,.08);
+}
+.showcase-cta p{
+  font-family:'Inter', sans-serif; font-size:20px; font-weight:500;
+  color:#F5EEDC; margin:0 0 14px;
+}
+.showcase-cta a{
+  display:inline-flex; align-items:center; gap:8px;
+  color:#F5B83E; font-weight:700; text-decoration:none;
+  transition:gap .3s;
+}
+.showcase-cta a:hover{ gap:14px; }
+
+/* ---- Responsive ---- */
+@media (max-width: 1100px){
+  .brand-chapter{ grid-template-columns:240px 1fr; gap:40px; padding:56px 0; }
+  .brand-chapter-name{ font-size:28px; }
+}
+
+@media (max-width: 900px){
+  .showcase-section, .showcase-page-hero{ overflow-x:hidden; }
+  .brand-chapter{ overflow:visible; }
+  .showcase-page-hero{ padding:96px 22px 56px; }
+  .showcase-page-title{ font-size:46px; letter-spacing:-1.5px; line-height:.98; }
+  .showcase-page-lede{ font-size:15px; line-height:1.6; }
+  .showcase-section-title{ font-size:32px; }
+  .showcase-section{ padding:48px 22px 72px; }
+  .showcase-section--page{ padding:20px 22px 36px; }
+  .showcase-section-header{ padding:32px 0 20px; margin-bottom:12px; }
+  .showcase-section-sub{ font-size:15px; }
+
+  .brand-chapter{
+    grid-template-columns:1fr;
+    gap:22px;
+    padding:36px 0;
+  }
+  .brand-chapter-kicker{ font-size:11px; letter-spacing:.22em; margin-bottom:12px; }
+  .brand-chapter-name{ font-size:24px; margin-bottom:12px; }
+  .brand-chapter-tagline{ font-size:15px; max-width:none; }
+
+  /* mobile: horizontal scroll snap, single row of 4 */
+  .brand-pieces--grid{
+    display:flex;
+    grid-template-columns:none;
+    overflow-x:auto; scroll-snap-type:x mandatory;
+    gap:14px;
+    padding:4px 22px 18px;
+    margin:0 -22px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .brand-pieces--grid::-webkit-scrollbar{ display:none; }
+  .brand-pieces--grid > *{ scroll-snap-align:center; flex-shrink:0; }
+
+  .showcase-cta{ margin-top:36px; padding:24px 20px; }
+  .showcase-cta p{ font-size:17px; }
+}
+
+@media (max-width: 520px){
+  .showcase-page-title{ font-size:clamp(36px,10vw,56px); }
+  .showcase-section-title{ font-size:clamp(28px,8vw,40px); }
+  .brand-chapter-name{ font-size:22px; }
+}

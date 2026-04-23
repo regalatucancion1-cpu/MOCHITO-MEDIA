@@ -742,6 +742,7 @@ function FooterSection() {
                 { label: "Portfolio", href: "/#portfolio" },
                 { label: "Método", href: "/#metodo" },
                 { label: "Blog", href: "/blog" },
+                { label: "Showcase de marca", href: "/showcase" },
                 { label: "Contacto", href: "/#contacto" },
               ].map(l => (
                 <a key={l.label} href={l.href} style={{ display: "block", color: "#F5EEDC", textDecoration: "none", fontSize: 14, marginBottom: 8, transition: "color 0.3s" }}
